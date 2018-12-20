@@ -14,7 +14,7 @@ void Main()
 
 public static class MyExtensions
 {
-	public static void SetupLog4Net()
+	public static void SetupLog4Net(string conversionPattern)
 	{
 		Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
 		ILog logger = LogManager.GetLogger("Main");
@@ -22,7 +22,7 @@ public static class MyExtensions
 		if (!hierarchy.Configured)
 		{
 			PatternLayout patternLayout = new PatternLayout();
-			patternLayout.ConversionPattern = "%time [%thread]  %message%newline";
+			patternLayout.ConversionPattern = $"[%thread] %message%newline";
 			patternLayout.ActivateOptions();
 			ConsoleAppender roller = new ConsoleAppender();
 			roller.Layout = patternLayout;
@@ -31,7 +31,22 @@ public static class MyExtensions
 			hierarchy.Root.Level = Level.Info;
 			hierarchy.Configured = true;
 		}
-	}	
+	}
+
+	public static void SetupLog4Net() => SetupLog4Net("[%thread]  %message%newline");
+
+	public static string GetStackTraceString(int numFrames)
+	{
+		StackTrace t = new StackTrace();
+		List<string> methods =t.GetFrames()
+		.Skip(1)
+		.Take(numFrames)
+		.Select(x => x.GetMethod().Name)
+		.ToList();
+		
+		return "Stack Trace\n" +
+		"----------------------------------\n" + String.Join("\n",methods);
+	}
 }
 
 // You can also define non-static classes, enums, etc.
