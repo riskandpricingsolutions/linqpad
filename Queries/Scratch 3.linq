@@ -11,34 +11,55 @@ void Main()
 	logger.Info("Main() started");
 
 
-	Task<Task<double>> antecedent = new Task<Task<double>>(() => OuterFunction(4.0));
-
-	antecedent.ContinueWith(a =>
-	{
-		a.Result.ContinueWith(r => 
-		{
-			logger.Info($"Final result({r.Result})");
-		});
-	});
-	
-	antecedent.Start(TaskScheduler.Default);
+	Task<Task<double>> forwardTask = GetForward("SX5E", "EUR");
+	double forward = forwardTask.Result.Result;
+	Console.WriteLine(forward);
 }
 
 
-public Task<double> OuterFunction(double x)
+public Task<Task<double>> GetForward(string stockSymbol, string index)
 {		
-	Task<double> innerTask = InnerFunction(x)
-		.ContinueWith(c => c.Result * c.Result);
+	Task<double> spotTask = GetSpotPrice(stockSymbol);
+	Task<double> rateTask = GetRate(index);
+
+	Func<Task<double>,Task<double>> spotContWork = (s)  =>
+	{
+		Func<Task<double>, double> rateContinuationWork = (r) =>
+		 {
+			 return s.Result * Math.Exp(r.Result);
+		 };
+
+		Task<double> rateContinuationTask = rateTask.ContinueWith(rateContinuationWork);
+		return rateContinuationTask;
+	};
+
+	Task<Task<double>> forwardTask = spotTask.ContinueWith(spotContWork);
 	
-	return innerTask;
+	return forwardTask;
 }
 
-public Task<double> InnerFunction(double x)
+public Task<double> GetSpotPrice(string stockSymbol)
 {
-	return Task<double>.Run(() =>
+	Func<double> work = () =>
 	{
-		logger.Info($"InnerFunction({x})");
-		return 2 * x;
-	});
+		logger.Info($"GetSpotPrice()");
+		return 100.0;
+	};
 
+	Task<double> task = new Task<double>(work);
+	task.Start(TaskScheduler.Default);
+	return task;
+}
+
+public Task<double> GetRate(string index)
+{
+	Func<double> work = () =>
+	{
+		logger.Info($"GetRate()");
+		return 0.1;
+	};
+
+	Task<double> task = new Task<double>(work);
+	task.Start(TaskScheduler.Default);
+	return task;
 }
