@@ -18,7 +18,6 @@ public static void Main()
 	    });
 	}
 
-	
 	var result = Increment(0)
 	.ContinueWith(f => Increment(f.Result))
 	.Unwrap().ContinueWith(f => Increment(f.Result))
