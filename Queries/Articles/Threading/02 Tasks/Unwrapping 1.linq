@@ -13,7 +13,6 @@ public static void Main()
 	
 	Task<double> GetForward(double spot) => Task.Run(() =>spot * Math.Exp(0.1));
 	
-	// Having a Task<Task<double>> is inconvenient
 	Task<Task<double>> forward = GetSpot()
 		.ContinueWith(x => GetForward(x.Result));	
 		
@@ -24,4 +23,3 @@ public static void Main()
 		.Unwrap()
 		.ContinueWith(f => log.Info(f.Result));
 }
-

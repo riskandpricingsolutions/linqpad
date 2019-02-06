@@ -14,15 +14,16 @@ public static void Main()
 		return Task.Run(() =>
 	    {
 			log.Info(nameof(Increment));
-			return ++x
+			return ++x;
 	    });
 	}
-
+	
 	var result = Increment(0)
 	.ContinueWith(f => Increment(f.Result))
 	.Unwrap().ContinueWith(f => Increment(f.Result))
 	.Unwrap().ContinueWith(f => Increment(f.Result))
-	.Unwrap().ContinueWith(f => Increment(f.Result));
+	.Unwrap().ContinueWith(f => Increment(f.Result))
+	.Unwrap();
 
 	result.ContinueWith(r => log.Info(r.Result));
 }

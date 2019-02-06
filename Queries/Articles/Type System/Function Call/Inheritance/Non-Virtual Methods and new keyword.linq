@@ -18,7 +18,7 @@ public class A
 
 public class B : A
 {
-	public void DoSomething() => Console.WriteLine("B:DoSomething");
+	public new void DoSomething() => Console.WriteLine("B:DoSomething");
 }
 
 public class C : B {}
