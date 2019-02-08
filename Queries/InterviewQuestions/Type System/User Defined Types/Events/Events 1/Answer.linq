@@ -50,6 +50,5 @@ public class Asset
 	{
 		OnPriceChanged(new PriceChangedEventArgs(4.0,5.0));
 	}
-
 }
 
