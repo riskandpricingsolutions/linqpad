@@ -9,10 +9,11 @@ void Main()
 	// Register First consumer
 	producer.ValueChanged += x => WriteLine($"First {x}");
 	
-	// Register Second consumer
-	producer.ValueChanged += x => WriteLine($"Second {x}");
+	// 1. Second consumer blows away first
+	producer.ValueChanged = x => WriteLine($"Second {x}");
 	
-	// Producer does something
+	//2. Consumer forcer producer to raise events
+	producer.ValueChanged.Invoke(6.7);
 }
 
 

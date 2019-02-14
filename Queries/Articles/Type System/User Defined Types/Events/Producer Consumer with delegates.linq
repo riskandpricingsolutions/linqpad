@@ -13,6 +13,7 @@ void Main()
 	producer.ValueChanged += x => WriteLine($"Second {x}");
 	
 	// Producer does something
+	producer.Fire();
 }
 
 
