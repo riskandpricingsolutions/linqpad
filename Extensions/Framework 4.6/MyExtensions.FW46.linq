@@ -1,10 +1,11 @@
 <Query Kind="Program">
   <NuGetReference>log4net</NuGetReference>
-  <Namespace>log4net.Repository.Hierarchy</Namespace>
   <Namespace>log4net</Namespace>
-  <Namespace>log4net.Layout</Namespace>
   <Namespace>log4net.Appender</Namespace>
   <Namespace>log4net.Core</Namespace>
+  <Namespace>log4net.Layout</Namespace>
+  <Namespace>log4net.Repository.Hierarchy</Namespace>
+  <Namespace>static System.Console</Namespace>
 </Query>
 
 void Main()
