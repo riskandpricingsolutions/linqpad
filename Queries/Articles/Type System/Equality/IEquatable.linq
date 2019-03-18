@@ -14,5 +14,6 @@ public struct MyStruct : IEquatable<MyStruct>
 {
 	public int Value;
 
-	public bool Equals(MyStruct other) => Value == other.Value;
+	public bool Equals(MyStruct other) 
+		=> Value == other.Value;
 }

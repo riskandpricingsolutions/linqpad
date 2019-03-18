@@ -24,6 +24,7 @@ void Main()
 	// Static Object.Equals causes boxing of value types
 	MyValue e = new MyValue { Value = 1 };
 	MyValue f = new MyValue { Value = 1 };
+	WriteLine(Object.Equals(e,f)); // true
 
 }
 

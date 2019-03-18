@@ -4,10 +4,16 @@
 
 void Main()
 {
-	MyReference a = new MyReference {Value = 1};
-	MyReference b = new MyReference {Value = 1};
-	WriteLine(a.Equals(b));
+	MyStruct a = new MyStruct {Value = 1};
+	MyStruct b = new MyStruct {Value = 1};
+	WriteLine(a.Equals(b)); // true
 }
 
 
-public class MyReference { public int Value;}
+public struct MyStruct 
+{ 
+	public int Value;
+
+	public override bool Equals(object obj) 
+		=> Value == (obj as MyStruct?)?.Value;
+}

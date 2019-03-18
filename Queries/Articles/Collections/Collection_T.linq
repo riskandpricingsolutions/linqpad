@@ -1,24 +1,24 @@
-<Query Kind="Program" />
+<Query Kind="Program">
+  <Namespace>static System.Console</Namespace>
+</Query>
 
 void Main()
 {
 	
 	IList<int> del = new List<int>();
 	SpecialIntList list = new SpecialIntList(del);
-	
+	list.Insert(0,1);
+	WriteLine(del);
 	
 }
 
 public class SpecialIntList : System.Collections.ObjectModel.Collection<int>
 {
 	public SpecialIntList(IList<int> del) : base(del) {}
-
-	
+		
 	protected override void InsertItem(int index, int item)
 	{
-		// Do some extra logic ...
-		
-		// Then call the base 
+		// Specific logic
 		base.InsertItem(index, item);
 	}
 

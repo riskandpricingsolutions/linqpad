@@ -6,8 +6,7 @@ void Main()
 {
 	MyReference a = new MyReference {Value = 1};
 	MyReference b = new MyReference {Value = 1};
-	WriteLine(a.Equals(b));
+	WriteLine(a.Equals(b)); // false
 }
-
 
 public class MyReference { public int Value;}
