@@ -4,6 +4,7 @@
 
 void Main()
 {
+	// Introducing Nullable<int>
 	int? nullable = null;
 
 	// Equivalent
@@ -22,9 +23,9 @@ void Main()
 	// basic value type to the nullable value type
 	// The following can be considered functionally equivalent
 	int? x = 5;
-	int? y = 5;
-	bool eq1 = x == y;
-	bool eq2 = (x.HasValue && y.HasValue)
+	int? y = 6;
+	bool eq1 = x < y;
+	bool eq2 = (x.HasValue && y.HasValue) ? x.Value < y.Value : false ;
 }
 
 // Define other methods and classes here

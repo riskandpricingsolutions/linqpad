@@ -3,44 +3,35 @@
   <Namespace>log4net</Namespace>
 </Query>
 
-static ILog logger = LogManager.GetLogger(nameof(Main));
-
-async Task Main()
+static void Main()
 {
-	MyExtensions.SetupLog4Net();
-	logger.Info("Main() started");
-
-
-	Task<double> antecedent = new Task<double>(() => Function1(4.0, true));
-	Task<double> continuation = antecedent.ContinueWith(x => Function2(x.Result));
-
-	Task finalContinuation = continuation.ContinueWith(c =>
+	foreach (int[] c in FindCombinations(2, 3))
 	{
-		logger.Info($"{c.Status}");
-		
-		if (c.Status == TaskStatus.Faulted)
-			logger.Info($"{c.Exception.Message}");		
-	});	
-	
-	antecedent.Start(TaskScheduler.Default);
-	
-	await finalContinuation;
-	logger.Info("Main() completed");
+		for (int i = 0; i < c.Length; i++)
+		{
+			
+			Console.Write(c[i] + " ");
+		}
+		Console.WriteLine();
+	}
 }
 
-public double Function1(double x, bool throwsEx=false)
+public static IEnumerable<int[]> FindCombosRec(int[] buffer, int done, int begin, int end)
 {
-	if (throwsEx)
-		throw new Exception("Function1 Exception");
-		
-	logger.Info($"Function1({x})");
-	return x * x;
+	for (int i = begin; i < end; i++)
+	{
+		buffer[done] = i;
+
+		if (done == buffer.Length - 1)
+			yield return buffer;
+		else
+			foreach (int[] child in FindCombosRec(buffer, done + 1, i + 1, end))
+				yield return child;
+	}
 }
 
-public double Function2(double x)
+public static IEnumerable<int[]> FindCombinations(int m, int n)
 {
-	logger.Info($"Function2({x})");
-	return 2 * x;
+	return FindCombosRec(new int[m], 0, 0, n);
 }
-
 

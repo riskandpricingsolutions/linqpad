@@ -118,4 +118,7 @@ el.HasAttributes.Dump("HasAttributes");
 el.Element("Option").Attribute("K").Dump("Attribute");
 
 // LastAttribute
+el.Element("Option").LastAttribute.Dump("LastAttribute");
 
+// Attributes
+el.Element("Option").Attributes().Dump("Attributes");

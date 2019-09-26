@@ -2,17 +2,19 @@
 
 void Main()
 {
-	string a = "Hello World";
-
-	ref string b = ref GetString(ref a);
-
-	b = "World";
-	Console.WriteLine(a);
+	Person p =new Person() {_name="Kenny"};
+	ref string b = ref GetString(p);
+	b = "John";
+	Console.WriteLine(p);
 }
 
-public ref String GetString(ref String inputString)
+public ref String GetString(Person p)
 {
-	return ref inputString;
+	return ref p._name;
 }
 
-// Define other methods and classes here
+public class Person
+{
+	public String _name ;	
+	public override string ToString() => _name;
+}

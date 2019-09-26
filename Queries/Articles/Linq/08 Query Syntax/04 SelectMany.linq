@@ -4,18 +4,28 @@
 
 var names = new List<String> (new[] { "Kenny", "Wilson"});
 
-// Query Syntax
-IEnumerable<string> s1 =
-	from 	n in names
-	where 	n.StartsWith("W")
-	orderby n
-	select  n.ToUpper();
+IEnumerable<char> q1 =
+	from n in names
+	from c in n
+	select c;
 
-// Fluent Syntax
-IEnumerable<string> s2 = 
+
+IEnumerable<char> f1 =
+	names.SelectMany(n => n);
+
+IEnumerable<char> q2 =
+	from n in names
+	from c in n
+	where n == "Kenny" && c == 'n'
+	select Char.ToUpper(c);
+
+IEnumerable<char> f2 =
 	names
-	.Where(n => n.StartsWith("W"))
-	.OrderBy(n => n)
-	.Select(n => n.ToUpper());
-	
-WriteLine(((IStructuralEquatable)s2.ToArray()).Equals(s1.ToArray(), EqualityComparer<string>.Default));
+		.SelectMany(n => n, (n, c) => new {n,c})
+		.Where(x => x.n=="Kenny" && x.c=='n')
+		.Select(x => Char.ToUpper(x.c));
+
+WriteLine(((IStructuralEquatable)q1.ToArray()).Equals(f1.ToArray(), EqualityComparer<char>.Default));
+
+q2.Dump();
+f2.Dump();

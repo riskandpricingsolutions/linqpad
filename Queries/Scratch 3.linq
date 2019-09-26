@@ -3,63 +3,61 @@
   <Namespace>log4net</Namespace>
 </Query>
 
-static ILog logger = LogManager.GetLogger(nameof(Main));
-
-void Main()
+static void Main()
 {
-	MyExtensions.SetupLog4Net();
-	logger.Info("Main() started");
+        char[]objectSet = {'A','B','C','D','E',}; 
+        int r = 3; 
+        int n = objectSet.Length; 
+        printCombination(objectSet, n, r); 
+
+}
+
+// The main function that prints 
+// all combinations of size r 
+// in arr[] of size n. This  
+// function mainly uses combinationUtil() 
+static void printCombination<T>(T[] objectSet,
+							 int n, int r)
+{
+
+	T[] combination = new T[r];
 
 
-	Task<Task<double>> forwardTask = GetForward("SX5E", "EUR");
-	double forward = forwardTask.Result.Result;
-	Console.WriteLine(forward);
+	combinationUtil(
+		objectSet:objectSet,
+		combination: combination,
+		firstObjectIdx: 0,
+		lastObjectIdx: n-1,
+		combinationIdx:0,
+		r:r);
 }
 
 
-public Task<Task<double>> GetForward(string stockSymbol, string index)
-{		
-	Task<double> spotTask = GetSpotPrice(stockSymbol);
-	Task<double> rateTask = GetRate(index);
-
-	Func<Task<double>,Task<double>> spotContWork = (s)  =>
-	{
-		Func<Task<double>, double> rateContinuationWork = (r) =>
-		 {
-			 return s.Result * Math.Exp(r.Result);
-		 };
-
-		Task<double> rateContinuationTask = rateTask.ContinueWith(rateContinuationWork);
-		return rateContinuationTask;
-	};
-
-	Task<Task<double>> forwardTask = spotTask.ContinueWith(spotContWork);
-	
-	return forwardTask;
-}
-
-public Task<double> GetSpotPrice(string stockSymbol)
+static void combinationUtil<T>(T[] objectSet, T[] combination,
+							int firstObjectIdx, int lastObjectIdx,
+							int combinationIdx, int r)
 {
-	Func<double> work = () =>
+	// Current combination is  
+	// ready to be printed,  
+	// print it 
+	if (combinationIdx == r)
 	{
-		logger.Info($"GetSpotPrice()");
-		return 100.0;
-	};
+		for (int j = 0; j < r; j++)
+			Console.Write(combination[j] + " ");
+		Console.WriteLine("");
+		return;
+	}
 
-	Task<double> task = new Task<double>(work);
-	task.Start(TaskScheduler.Default);
-	return task;
-}
-
-public Task<double> GetRate(string index)
-{
-	Func<double> work = () =>
+	for (int objectIdx = firstObjectIdx; objectIdx <= lastObjectIdx ; objectIdx++)
 	{
-		logger.Info($"GetRate()");
-		return 0.1;
-	};
-
-	Task<double> task = new Task<double>(work);
-	task.Start(TaskScheduler.Default);
-	return task;
+		combination[combinationIdx] = objectSet[objectIdx];
+		
+		combinationUtil(			
+			objectSet:objectSet,
+			combination: combination,
+			firstObjectIdx:objectIdx + 1,
+			lastObjectIdx:lastObjectIdx,
+			combinationIdx:combinationIdx + 1, 
+			r:r);
+	}
 }

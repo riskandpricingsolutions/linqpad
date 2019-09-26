@@ -11,9 +11,6 @@ void Main()
 	// compile-timetype of the reference determine which method 
 	// is called
 
-	// Call SubClass.VirtualMethod      c.VirtualMethod();
-
-	// Call BaseClass.VirtualMethod
 	bref.VirtualMethod();
 }
 
@@ -40,4 +37,3 @@ class SubClass : BaseClass
 		Console.WriteLine("SubClass.VirtualMethod()");
 	}
 }
-
