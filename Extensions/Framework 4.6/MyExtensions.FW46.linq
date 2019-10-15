@@ -48,6 +48,17 @@ public static class MyExtensions
 		return "Stack Trace\n" +
 		"----------------------------------\n" + String.Join("\n",methods);
 	}
+	
+	public static void AreEqual<T>(T expected, T actual, 
+		[System.Runtime.CompilerServices.CallerMemberNameAttribute] string memberName ="")
+	{
+		if (Object.Equals(expected,actual))
+			Console.WriteLine($"{memberName} passed, expected {expected}, actual {actual}");
+		else
+			Console.WriteLine($"{memberName} failed, expected {expected}, actual {actual}");
+
+	}
+	
 }
 
 // You can also define non-static classes, enums, etc.
