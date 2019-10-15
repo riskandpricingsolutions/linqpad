@@ -4,7 +4,8 @@ void Main()
 {
 
 	Random rand = new Random();
-	int n = rand.Next(300000) + 1;
+	//int n = rand.Next(300000) + 1;
+	int n = 6;
 	int missing = rand.Next(n + 1);
 	List<BitInteger> array = Question.initialize(n, missing);
 	Console.WriteLine("The array contains all numbers but one from 0 to " + n + ", except for " + missing);
@@ -31,13 +32,14 @@ public class Question
 
 		for (int i = 1; i <= n; i++)
 		{
-			array.Add(new BitInteger(i == missing ? 0 : i));
+			if (i != missing)
+			array.Add(new BitInteger( i));
 		}
 
 		// Shuffle the array once.
 		for (int i = 0; i < n; i++)
 		{
-			int rand = i + (int)(random.Next() * (n - i));
+			int rand = i + (int)(random.Next(n-i));
 			array[i].swapValues(array[rand]);
 		}
 
@@ -158,5 +160,16 @@ public class BitInteger
 			}
 		}
 		return number;
+	}
+
+	public override string ToString()
+	{
+		StringBuilder b = new StringBuilder();
+		foreach (var element in bits)
+		{
+			if (element) b.Append('1');
+			else b.Append('0');
+		}
+		return b.ToString();
 	}
 }
