@@ -37,13 +37,15 @@ private (string quotient, string remainder) IntegerLongDivision(string dividend,
 	return (quotient.ToString(), remainder.ToChar().ToString());
 }
 
-private string IntegerDivisionWithFloatingPointResult(string dividend, int divisor, int b = 10, int maxDigits=8)
+public string IntegerDivisionWithFloatingPointResult(string dividend, int divisor, 
+	int b = 10, int maxDigits = 8)
 {
 	StringBuilder quotient = new StringBuilder();
 	int remainder = 1;
 	int dd = 0;
 
-	for (int idx = 0; (idx < dividend.Length || remainder > 0) && idx < maxDigits; idx++)
+	for (int idx = 0; (idx < dividend.Length || remainder > 0) 
+			&& idx < maxDigits; idx++)
 	{
 		// Add in a decimal point
 		if (idx == dividend.Length)
@@ -54,7 +56,7 @@ private string IntegerDivisionWithFloatingPointResult(string dividend, int divis
 			dd = (dd * b) + dividend[idx].ToIntDigit();
 		else
 			// The integer dividend has no more digits so we just increase 
-			// by a factor of b as we move to the right side of the floatinh
+			// by a factor of b as we move to the right side of the point
 			// point
 			dd = (dd * b);
 
@@ -92,4 +94,3 @@ public static class Extensions
 		return (char)(i + 'a' -10);
 	}
 }
-
