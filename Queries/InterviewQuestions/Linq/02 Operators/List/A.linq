@@ -4,7 +4,57 @@ void Main()
 {
 	//BuiltInAgregations();
 	//CustomAggregations();
-	To();
+	SetOperators();
+}
+
+void SetOperators()
+{
+	var s = new[] { 1, 2, 3,4 };
+	var t = new[] {  3,4,5,6 };
+	
+	// Use LINQ to return all elements in the first sequence
+	// and all the elements in the second sequence
+	s.Concat(t).Dump();
+	
+	// Use LINQ to return all elements that are present in both
+	// sequences s and t
+	s.Intersect(t).Dump();
+	
+	// Use LINQ to return all elements that are present in either
+	// sequence s or sequence t
+	s.Union(t).Dump();
+	
+	// Use LINQ to return all the elements from the set s not in the 
+	// set t
+	s.Except(t).Dump();
+}
+
+public void Filtration()
+{
+	var s = new[] { 1, 2, 3,4 };
+	
+	// Use LINQ to filter out all elements less than 2
+	s.Where(x=> x>=2).Dump();
+	
+	// Use LINQ to filter out every second element. The
+	// first element in the sequence should be returned
+	s.Where((x,i)=> i%2==0).Dump();
+	
+	// Use LINQ to return the first two elements
+	s.Take(2).Dump();
+	
+	// Use LINQ to return all elements until a 3 is encountered
+	s.TakeWhile(x=>x!=3).Dump();
+	
+	// Use LINQ to ignore the first 2 values
+	s.Skip(2).Dump();
+	
+	// Use LINQ to skip elements until a 3 is encounted
+	s.SkipWhile(x=> x!=3);
+
+	s = new[] { 1, 2, 3, 4, 4, 2, 1, 9 };
+	// Use LINQ to remove duplicates
+	s.Distinct().Dump();
 }
 
 
@@ -28,6 +78,11 @@ public void BuiltInAgregations()
 	
 	// Use LINQ to print twice the sum of the values in s
 	s.Sum(x => x * 2 ).Dump(); 
+	
+	// Use LINQ to return the arithmetic mean
+	s.Average().Dump();
+	
+
 }
 
 public void CustomAggregations()

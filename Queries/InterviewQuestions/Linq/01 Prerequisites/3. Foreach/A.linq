@@ -2,7 +2,6 @@
 
 void Main()
 {
-	// Show what the compiler generates when it sees a foreach
 	var l = new List<int> {1,2,3};
 	
 	foreach (var element in l)
@@ -10,6 +9,7 @@ void Main()
 		Console.WriteLine(element);
 	}
 	
+	// Question: Show what the compiler generates when it sees a foreach
 	using( IEnumerator<int> en = l.GetEnumerator())
 	{
 		while (en.MoveNext())
