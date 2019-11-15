@@ -1,0 +1,13 @@
+﻿<Window x:Class="ChildProperties.Size.MinWidthHeightxaml"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        Background="Green"
+        ResizeMode="CanResizeWithGrip"
+        SizeToContent="WidthAndHeight">
+    <Border>
+        <Button  MinWidth="150" MinHeight="150">
+            Click Me
+        </Button>
+    </Border>
+</Window>

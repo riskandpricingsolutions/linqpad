@@ -1,28 +1,20 @@
-<Query Kind="Statements" />
+<Query Kind="Statements">
+  <Output>DataGrids</Output>
+</Query>
 
-// Select - Basic Projection
-//----------------------------------------------------------------------
+IEnumerable<string> sIn = new[] { "Hello World", "Moi Vaimoni", "Miten menee" };
 
-var inseq1 = new[] { "Hello World", "Moi Vaimoni", "Miten menee"};
+// Correlated Subquery in fluent syntax
+IEnumerable<IEnumerable<string>> sOut =
+	sIn
+		.Select(i => i
+			.Split()
+			.Select(j => j));
 
-//var q1 = inseq1.Select(i => i.Split().Select(i => ));
+// Correlated Subquery in query syntax
+var sOut2 =
+	from i in sIn
+	select (from j in i.Split() select j);
 
-var q1 =
-	from i in inseq1
-	select new 
-	{ 
-		Words =  
-			from j in i.Split()
-			select j
-	};
-
-var f1 = inseq1
-		.Select(i => new 
-		{
-			Words = i.Split()
-					 .Select(j => j)
-		});
-
-
-q1.Dump();
-f1.Dump();
+sOut.Dump();
+sOut2.Dump();

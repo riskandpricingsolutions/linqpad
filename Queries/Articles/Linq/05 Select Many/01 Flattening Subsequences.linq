@@ -14,16 +14,19 @@
 //			a flattning operation	 
 
 
-var parit = new[] { ("Kenny", new[] { 1, 2, 3 }), ("Joe", new[] { 4, 5, 6 }) };
+IEnumerable<(string, int[])> sIn = 
+	new[] { ("Kenny", new[] { 1, 2, 3 }), ("Joe", new[] { 4, 5, 6 }) };
 
-var seq1 =
-	from p in parit
-	from s in p.Item2   // A second from clause causes SelectMany
-select s;
-
-var seq2 =
-	parit
+// Flattening/Concatentating subsequences using SelectMany - Fluent Syntax
+IEnumerable<int> seq2 = sIn
 	.SelectMany(s => s.Item2);
+
+IEnumerable<int> seq1 =
+	from p in sIn
+	from s in p.Item2   // A second from clause causes SelectMany
+					select s;
+
+
 
 seq1.Dump("Query Syntax");
 seq2.Dump("Fluent Syntax");

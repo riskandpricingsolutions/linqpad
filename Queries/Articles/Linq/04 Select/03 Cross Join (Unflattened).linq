@@ -1,13 +1,17 @@
 <Query Kind="Statements" />
 
-var inseq1 = new[] { (1, "one"), (2, "two"), };
-var inseq2 = new[] { (1, "Ensimmäinen"), (1, "Ett") };
+IEnumerable<(int, string)> sOuter = new[] { (1, "one"), (2, "two"), };
+IEnumerable<(int, string)> sInner = new[] { (1, "Ensimmäinen"), (1, "Ett") };
+
+// Uncorrelated Subquery in query syntax
+IEnumerable<((int, string), IEnumerable<(int, string)>)> sOut =
+	from i in sOuter
+	select (Left: i, Right: from j in sInner select j);
+
+// Uncorrelated Subquery in fluent syntax
+IEnumerable<((int, string), IEnumerable<(int, string)>)> sOut2 =
+	sOuter.Select(i => (Left: i, Right: sInner.Select(j => j)));
 
 
-var q1 = from i in inseq1
-		 select (i, from j in inseq2 select j);
-
-var f1 = inseq1.Select(i => (i, inseq2.Select(j => j)));
-
-q1.Dump();
-f1.Dump();
+sOut.Dump();
+sOut2.Dump();
