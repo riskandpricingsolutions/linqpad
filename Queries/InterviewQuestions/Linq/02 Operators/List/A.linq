@@ -73,6 +73,7 @@ public void BuiltInAgregations()
 	// Use LINQ to print double the minimum value in s
 	s.Min(x=>x*2).Dump(); 
 
+
 	// Use LINQ to print the sum of all values in s
 	s.Sum().Dump(); // 12
 	

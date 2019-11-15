@@ -2,7 +2,7 @@
 
 void Main()
 {
-	// Show what the compiler generates when it sees a foreach
+	
 	var l = new List<int> {1,2,3};
 	
 	foreach (var element in l)
@@ -11,9 +11,5 @@ void Main()
 	}
 	
 
-	// Your code here
-	
-	
-
+	// Question: Show what the compiler generates when it sees a foreach
 }
-
