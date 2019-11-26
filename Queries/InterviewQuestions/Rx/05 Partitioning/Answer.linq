@@ -15,16 +15,19 @@ void Main()
 	MyExtensions.SetupLog4Net();
 
 	// Question: Give examples of all the following
-	
-	Observable.Range(0,10)
-		.MinBy(o => o%3)
-		.Subscribe(o => WriteLine(o));
 
-	Observable.Range(0, 10)
-		.MaxBy(o => o % 3)
-		.Subscribe(o => WriteLine(o));
+	//	Observable.Range(0,10)
+	//		.MinBy(o => o%3)
+	//		.Subscribe(o => WriteLine(o));
+	//
+	//	Observable.Range(0, 10)
+	//		.MaxBy(o => o % 3)
+	//		.Subscribe(o => WriteLine(o));
 
-	Observable.Range(0, 10)
-	.GroupBy(o => o % 3)
+	Observable.Interval(TimeSpan.FromSeconds(1))
+			.GroupBy(o => o % 3)
 	.Subscribe(o => WriteLine(o));
+
+
+	
 }
