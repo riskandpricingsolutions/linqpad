@@ -2,42 +2,41 @@
 
 void Main()
 {
-	// Question: Write your own SpinLock that can be used to make this code correct
+	// Question: Write your own BlockLock using an event
 	
 	new Thread(() => UpdateValue()).Start();
 	
-
+	
+	l.Enter();
 	int temp = count;
 	Thread.Sleep(100);
 	temp = temp + 10;
 	count = temp;
+	l.Leave();
 	Thread.Sleep(100);
 	Console.WriteLine(count);
 	
 }
+BlockingLock l = new BlockingLock();
 
 public int count = 0;
 
 public void UpdateValue()
 {
+	l.Enter();
 	int temp = count;
 	Thread.Sleep(100);
 	temp = temp + 10;
 	count = temp;
+	l.Leave();
 }
 
 
-public class MySpinLock
+public class BlockingLock
 {
-	private int taken = 0;
+	private AutoResetEvent _event = new AutoResetEvent(true);
 	
-	public void Enter()
-	{
-		throw new NotSupportedException();
-	}
+	public void Enter() => _event.WaitOne();
 	
-	public void Leave()
-	{
-		throw new NotSupportedException();
-	}
+	public void Leave() => _event.Set();
 }

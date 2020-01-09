@@ -1,11 +1,12 @@
 <Query Kind="Statements" />
 
-AutoResetEvent e = new AutoResetEvent(false);
+ManualResetEvent e = new ManualResetEvent(initialState:true);
 
 new Thread(() =>
 {
 	e.WaitOne();
 	Console.WriteLine("t1 in");
+	
 }).Start();
 
 new Thread(() =>
@@ -14,12 +15,10 @@ new Thread(() =>
 	Console.WriteLine("t2 in");
 }).Start();
 
-Thread.Sleep(1000);
+
+Console.Read();
+
 e.Set();
 Console.WriteLine("Signalled");
-
-Thread.Sleep(1000);
-e.Set();
-Console.WriteLine("Signalled Again");
 //e.Reset();
 //Console.WriteLine("Signalled");

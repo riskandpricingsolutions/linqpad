@@ -1,6 +1,6 @@
 <Query Kind="Statements" />
 
-ManualResetEvent e = new ManualResetEvent(false);
+AutoResetEvent e = new AutoResetEvent(initialState:true);
 
 new Thread(() =>
 {
@@ -14,8 +14,5 @@ new Thread(() =>
 	Console.WriteLine("t2 in");
 }).Start();
 
-Thread.Sleep(1000);
+Console.Read();
 e.Set();
-Console.WriteLine("Signalled");
-//e.Reset();
-//Console.WriteLine("Signalled");

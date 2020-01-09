@@ -3,21 +3,22 @@
   <Namespace>log4net</Namespace>
 </Query>
 
-var s = new System.Threading.SemaphoreSlim(0, 2);
+var s = new ReaderWriterLockSlim();
 
-for (int i = 0; i < 4; i++)
+for (int i = 0; i < 2; i++)
 {
 	int j = i;
 	new Thread(() =>
    {
-	   WriteLine($"{j} Acquiring Sempahore");
-	   s.Wait();
-	   WriteLine($"{j} In Critical Section");
-	   Thread.Sleep(3000);
-	   WriteLine($"{j} Releasing SemaphoreSlim");
-	   s.Release();
+	   Thread.Sleep(200);
+	   s.EnterReadLock();
+	   Thread.Sleep(10000);
+	   s.ExitReadLock();
    }).Start();
 }
 
-WriteLine("Main releasing semaphore twice");
-s.Release(2);
+Thread.Sleep(100);	
+s.EnterWriteLock();
+WriteLine($"Main Has Write Lock");
+Thread.Sleep(5000);
+s.ExitWriteLock();
