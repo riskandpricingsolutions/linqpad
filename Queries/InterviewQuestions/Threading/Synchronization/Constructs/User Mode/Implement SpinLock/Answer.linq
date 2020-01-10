@@ -40,13 +40,14 @@ public class MySpinLock
 	{
 		while (true)
 		{
-			if (Interlocked.Exchange(ref taken, 1) == 0)
-				return;	
+			if (Interlocked.Exchange(ref taken, 1) == 0) return;
+			
+			// Yield the current thread in an attempt to lessen the 
+			// impact of spinning and allow the thread that holds the 
+			// lock to finish what it is doing
+			Thread.Yield();
 		}
 	}
 	
-	public void Leave()
-	{
-		Volatile.Write(ref taken,0);
-	}
+	public void Leave() => Volatile.Write(ref taken,0);
 }

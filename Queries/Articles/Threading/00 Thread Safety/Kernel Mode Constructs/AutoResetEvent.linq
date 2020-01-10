@@ -1,18 +1,43 @@
-<Query Kind="Statements" />
+<Query Kind="Statements">
+  <Namespace>log4net</Namespace>
+</Query>
 
-AutoResetEvent e = new AutoResetEvent(initialState:true);
+ILog logger = LogManager.GetLogger("Main");
 
-new Thread(() =>
+
+MyExtensions.SetupLog4Net();
+AutoResetEvent e = new AutoResetEvent(initialState: false);
+
+Action work = () =>
 {
-	e.WaitOne();
-	Console.WriteLine("t1 in");
-}).Start();
+	// Simulate some work this thread is doing
+	Thread.Sleep(1000);
+	logger.Info($"Calling WaitOne");
 
-new Thread(() =>
-{
+	// Now wait for notification from another thread
+	// that we can complete
 	e.WaitOne();
-	Console.WriteLine("t2 in");
-}).Start();
 
-Console.Read();
+	// Simulate some more work 
+	logger.Info("Running");
+	Thread.Sleep(5000);
+};
+
+new Thread(()=> work()).Start();
+new Thread(()=> work()).Start();
+
+// Main thread does some work
+Thread.Sleep(5000);
+logger.Info("Calling Set to Signal ARE");
+
+// Main thread notifies one background thread
 e.Set();
+
+// Main thread does some work
+Thread.Sleep(5000);
+Thread.Sleep(2000);
+
+// Main thread notifies one background thread
+logger.Info("Calling Set to Signal ARE");
+e.Set();
+

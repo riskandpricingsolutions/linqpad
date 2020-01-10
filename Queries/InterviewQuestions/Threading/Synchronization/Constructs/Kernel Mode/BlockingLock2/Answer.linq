@@ -2,7 +2,7 @@
 
 void Main()
 {
-	// Question: Write your own SpinLock that can be used to make this code correct
+	// Question: Write your own BlockLock using an event
 	
 	new Thread(() => UpdateValue()).Start();
 	
@@ -17,7 +17,7 @@ void Main()
 	Console.WriteLine(count);
 	
 }
-MySpinLock l = new MySpinLock();
+BlockingLock l = new BlockingLock();
 
 public int count = 0;
 
@@ -32,21 +32,11 @@ public void UpdateValue()
 }
 
 
-public class MySpinLock
+public class BlockingLock
 {
-	private int taken;
+	private AutoResetEvent _event = new AutoResetEvent(true);
 	
-	public void Enter()
-	{
-		while (true)
-		{
-			if (Interlocked.Exchange(ref taken, 1) == 0)
-				return;	
-		}
-	}
+	public void Enter() => _event.WaitOne();
 	
-	public void Leave()
-	{
-		Volatile.Write(ref taken,0);
-	}
+	public void Leave() => _event.Set();
 }
