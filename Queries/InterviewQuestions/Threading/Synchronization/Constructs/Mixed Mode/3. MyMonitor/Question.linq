@@ -2,7 +2,7 @@
 
 void Main()
 {
-	// Question: Write your own BlockLock using an event
+	// Question: Add Spinning support to the below MixedModeWaitLock
 	
 	new Thread(() => UpdateValue()).Start();
 	
@@ -17,7 +17,7 @@ void Main()
 	Console.WriteLine(count);
 	
 }
-BlockingLock l = new BlockingLock();
+SpinningWaitLock l = new SpinningWaitLock();
 
 public int count = 0;
 
@@ -32,11 +32,11 @@ public void UpdateValue()
 }
 
 
-public class BlockingLock
+public class SpinningWaitLock
 {
-	private AutoResetEvent _event = new AutoResetEvent(true);
 	
-	public void Enter() => _event.WaitOne();
-	
-	public void Leave() => _event.Set();
+	public void Enter() => throw new NotImplementedException();
+
+	public void Leave() => throw new NotImplementedException();
 }
+

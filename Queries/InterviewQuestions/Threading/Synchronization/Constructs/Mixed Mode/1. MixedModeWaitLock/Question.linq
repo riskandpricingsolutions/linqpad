@@ -2,7 +2,8 @@
 
 void Main()
 {
-	// Question: Write your own BlockLock using an event
+	// Question: Write your own very simple Mutex using a mix of 
+	// user mode and kernel mode to improve performance
 	
 	new Thread(() => UpdateValue()).Start();
 	
@@ -17,7 +18,7 @@ void Main()
 	Console.WriteLine(count);
 	
 }
-BlockingLock l = new BlockingLock();
+MixedModeWaitLock l = new MixedModeWaitLock();
 
 public int count = 0;
 
@@ -32,11 +33,10 @@ public void UpdateValue()
 }
 
 
-public class BlockingLock
+public class MixedModeWaitLock
 {
-	private AutoResetEvent _event = new AutoResetEvent(true);
-	
-	public void Enter() => _event.WaitOne();
-	
-	public void Leave() => _event.Set();
+
+	public void Enter() => throw new NotImplementedException();
+
+	public void Leave() => throw new NotImplementedException();
 }
