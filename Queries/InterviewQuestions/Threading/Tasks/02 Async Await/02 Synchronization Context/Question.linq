@@ -15,8 +15,13 @@ void Main()
 	MyExtensions.SetupLog4Net();
 	
 	// Question: Write code to create a window and button. When the 
-	// button is clicked it will use a task to simulatr a long running task
+	// button is clicked it will use a task to simulate a long running task
 	// and then when it completes change the button background to red
+	Window w = new Window();
+	Button b = new Button() {Content="Click Me"};
+	
+	
+	
 }
 
 public Task<double> GetSpotPrice()

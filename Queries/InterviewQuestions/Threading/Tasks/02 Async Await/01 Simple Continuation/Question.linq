@@ -9,15 +9,9 @@ void Main()
 {
 	MyExtensions.SetupLog4Net();
 	LogManager.GetLogger(nameof(Main)).Info($"Main Thread \n");
-	
+
 	// Question: Write code to perform a continuation after the spot
-	//           price is ready
-	Task<double> spotPriceTask = GetSpotPrice();
-	TaskAwaiter<double> awaiter = spotPriceTask.GetAwaiter();
-	awaiter.OnCompleted(() =>
-    {
-   		LogManager.GetLogger(nameof(Main)).Info($"Task Completed \n");
-    });
+	//           price is ready. Use an awaiter
 }
 
 // Define other methods and classes here

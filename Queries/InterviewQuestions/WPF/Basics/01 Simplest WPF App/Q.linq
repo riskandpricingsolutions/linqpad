@@ -8,11 +8,9 @@
 
 // Question: Write the simplest possible WPF Main method. Do not use Application
 
-[STAThread]
-public static void Main()
+
+// 1. 
+public static void Main(String[] args)
 {
-	Window window = new Window();
-	window.Show();
-	Dispatcher.Run();
 	
-} 
+}

@@ -19,3 +19,9 @@ void Main()
    		logger.Info(awaiter.GetValue());
    });
 }
+
+public class AwaitableType<TResult>
+{
+	private TResult _result;
+	public AwaitableType(TResult result) => _result = result;
+}

@@ -10,6 +10,8 @@
   <Namespace>System.Windows.Threading</Namespace>
 </Query>
 
+static ILog logger = LogManager.GetLogger(nameof(Main));
+
 void Main()
 {
 	MyExtensions.SetupLog4Net();
@@ -21,6 +23,10 @@ void Main()
 	
 	Button b = new Button();
 	b.Content = "Click Me";
+	b.Click += delegate 
+	{
+		
+	};
 	w.Content = b;
 	w.Show();
 	Dispatcher.Run();

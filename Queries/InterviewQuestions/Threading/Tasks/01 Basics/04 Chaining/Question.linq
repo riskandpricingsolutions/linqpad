@@ -5,7 +5,7 @@
 void Main()
 {
 	// Question: Show the exact types of the function used to execute TaskOneFunction
-	//           as antecedent and TaskTwoFunction as a continuation	
+	//           as antecedent and TaskTwoFunction as a continuation		
 }
 
 public void TaskOneFunction()
@@ -22,4 +22,3 @@ public void TaskTwoFunctionWrapper(Task antecedent)
 {
 	TaskTwoFunction();
 }
-

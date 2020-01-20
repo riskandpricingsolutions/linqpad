@@ -30,7 +30,27 @@ public async Task<double> CalcForward()
 	return fwd;
 }
 
-public Task<double> CalcForwardAwaiter() => throw new NotImplementedException();
+public Task<double> CalcForwardAwaiter() 
+{
+	var tcs = new TaskCompletionSource<double>();
+
+	Task<double> getSpotTask = GetSpot();
+	Task<double> getRateTask = GetRate();
+	Task<double> getBorrowTask = GetBorrow();
+
+	getSpotTask.GetAwaiter().OnCompleted(() =>
+   {
+	   getRateTask.GetAwaiter().OnCompleted(() =>
+   		{
+			   getBorrowTask.GetAwaiter().OnCompleted(() =>
+			  {
+			  	var f = getSpotTask.Result * Math.Exp(getRateTask.Result- getBorrowTask.Result);
+			  });
+   		});
+   })
+
+	
+}
 
 public Task<Double> GetRate() => Task.Run<double>(() => 0.1);
 public Task<Double> GetBorrow() => Task.Run<double>(() => 0.05);
