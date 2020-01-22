@@ -10,9 +10,5 @@ void Main()
 	MyExtensions.AreEqual(120, Factorial(5));
 }
 
-// Question: Implement Recursive Factorial
-public static int Factorial(int x) 
-{
-	if (x ==0) return 1;	
-	return x * Factorial(x-1);	
-}
+// Question: Implement Iterative Factorial
+public static int Factorial(int x) => throw new NotImplementedException();

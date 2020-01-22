@@ -9,9 +9,22 @@ void Main()
 	MyExtensions.AreEqual(false, IsPrimeUsingSquareRoot(4));
 	MyExtensions.AreEqual(true, IsPrimeUsingSquareRoot(5));
 }
-
 // Question: Write a is prime with square root optimisation
 public bool IsPrimeUsingSquareRoot(int n)
+{
+	if (n < 2)
+		return false;
+
+	for (int i = 2; i <= Math.Sqrt(n); i++)
+	{
+		if (n % i == 0) return false;
+	}
+
+	return true;
+}
+
+// Same again use Enumerable.Range
+public bool IsPrimeUsingSquareRoot2(int n)
 {
 	if (n < 2)
 		return false;
@@ -35,3 +48,4 @@ public bool IsPrimeUsingSquareRoot(int n)
 	return Enumerable.Range(2, (int)Math.Floor(Math.Sqrt(n)))
 		.All(i => n % i > 0);
 }
+

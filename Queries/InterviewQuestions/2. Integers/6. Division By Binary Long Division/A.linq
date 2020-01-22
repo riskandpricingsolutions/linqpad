@@ -1,5 +1,6 @@
 <Query Kind="Program" />
 
+
 void Main()
 {
 	MyExtensions.AreEqual<(int, int)>((4, 1), Divide(9, 2));
