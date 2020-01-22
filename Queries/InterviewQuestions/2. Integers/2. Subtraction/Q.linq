@@ -7,4 +7,4 @@ void Main()
 }
 
 // Implement subtact without the - key
-public sbyte Subtract(sbyte a, sbyte b) => throw new NotImplementedException();
+public sbyte Subtract(sbyte a, sbyte b) => (sbyte)(a + (~b+1));

@@ -15,7 +15,7 @@ void Main()
 	MyExtensions.AreEqual<int>(5, ClearBit(7, 1));
 
 	// ClearFromMsbToI
-	MyExtensions.AreEqual<int>(15, ClearFromMsbToI(-1, 5));
+	MyExtensions.AreEqual<int>(31, ClearFromMsbToI(-1, 5));
 
 	// SetFromMsbToI
 	MyExtensions.AreEqual<int>(-2, SetFromMsbToI(0, 1));
@@ -46,7 +46,7 @@ public int ClearBit(int n, int i) => ~(1 << i ) & n;
 // --------- in index i inclusive
 public int ClearFromMsbToI(int n, int i)
 {
-	return ((1 << i-1 )-1) & n;
+	return ((1 << i )-1) & n;
 }
 
 // Question: Set all bits from the msb to the bit 

@@ -15,59 +15,45 @@ void Main()
 	MyExtensions.AreEqual<int>(5, ClearBit(7, 1));
 
 	// ClearFromMsbToI
-	MyExtensions.AreEqual<int>(15, ClearFromMsbToI(-1, 5));
+	MyExtensions.AreEqual<int>(31, ClearFromMsbToI(-1, 5));
 
 	// SetFromMsbToI
 	MyExtensions.AreEqual<int>(-4, SetFromMsbToI(0, 2));
 
 	// ClearFromLsbToI
-	MyExtensions.AreEqual<int>(-4, ClearFromLsbToI(-1, 2));
+	MyExtensions.AreEqual<int>(-8, ClearFromLsbToI(-1, 2));
 
 	// SetFromLsbToI
-	MyExtensions.AreEqual<int>(15, SetFromLsbToI(0, 4));
+	MyExtensions.AreEqual<int>(31, SetFromLsbToI(0, 4));
 
 }
 // Question: Return true or false reflecting whether or not
 // --------- bit i is set to 0 or 1
-public bool GetBit(int n, int i) => throw new NotImplementedException();
+public bool GetBit(int n, int i) => ((n >> i) & 1) != 0; 
 
 
 // Question: Set bit i to 1
 // --------- 
-public int SetBit(int n, int i) => throw new NotImplementedException();
+public int SetBit(int n, int i) => (1 << i) | n;
 
 
 // Question: Clear bit i to 0
 // --------- 
-public int ClearBit(int n, int i)
-{
-	throw new NotImplementedException();
-}
+public int ClearBit(int n, int i) => (~(1 << i)) & n;
 
 // Question: Clear all bits from the msb to the bit in 
 // --------- in index i inclusive
-public int ClearFromMsbToI(int n, int i)
-{
-	throw new NotImplementedException();
-}
+public int ClearFromMsbToI(int n, int i) => ((1 << i)-1) & n;
 
 // Question: Set all bits from the msb to the bit 
 // --------- in index i inclusive
-public int SetFromMsbToI(int n, int i)
-{
-	throw new NotImplementedException();
-}
+public int SetFromMsbToI(int n, int i) => (~((i << 1)-1)) | n;
+
 
 // Question: Clear all bits from the lsb to the bit in 
 // --------- in index i inclusive
-public int ClearFromLsbToI(int n, int i)
-{
-	throw new NotImplementedException();
-}
+public int ClearFromLsbToI(int n, int i) =>  (~0 << (i+1)) & n;
 
 // Question: Set all bits from the lsb to the bit 
 // --------- in index i inclusive
-public int SetFromLsbToI(int n, int i)
-{
-	throw new NotImplementedException();
-}
+public int SetFromLsbToI(int n, int i) => ((1 << (i+1))-1) | n;
