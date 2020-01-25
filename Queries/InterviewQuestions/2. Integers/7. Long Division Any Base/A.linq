@@ -2,7 +2,7 @@
 
 void Main()
 {
-	MyExtensions.AreEqual<(string,string)>(("4","1"),IntegerLongDivision("9",2));
+	MyExtensions.AreEqual<(string,string)>(("014","5"),IntegerLongDivision("145",10));
 }
 
 // Question : Implement the below to perform integer long division in any base.
@@ -15,21 +15,22 @@ public (string quotient, string remainder) IntegerLongDivision(string dividend, 
 
 	for (int idx = 0; idx < dividend.Length; idx++)
 	{
-		// idx.1 copy in next digit into temporary dividend dd
-		dd = (dd * b) + dividend[idx].ToIntDigit();
+		// Get the value of the character at index i and 
+		// convert it to an integer. This gives us a single
+		// digit of the dividend
+		int dividend_i = dividend[idx].ToIntDigit();
+		
+		// Form the partial dividend for this iteration my 
+		// shifting the remainder from the previous iteration 
+		// one position left and adding the dividend[i]
+		int partialDividend_i = (remainder * b) + dividend_i;
 
-		// idx.2 calculate partial quotient and set into quotient[idx] 
-		int partialQuotient = dd / divisor;
-		quotient.Append(partialQuotient.ToChar());
+		// Calculate partial quotient and set into quotient[idx] 
+		int quotient_i = partialDividend_i / divisor;
+		quotient.Append(quotient_i.ToChar());
 
-		// idx.3 calculate this temporary as part of calculating the remainder
-		int temp = partialQuotient * divisor;
-
-		// idx.4 Calculate the remainder
-		remainder = dd % divisor;
-
-		// the remainder will form the basis of dd[idx+1]
-		dd = remainder;
+		// Calculate the remainder
+		remainder = partialDividend_i % divisor;
 	}
 
 	return (quotient.ToString(), remainder.ToChar().ToString());

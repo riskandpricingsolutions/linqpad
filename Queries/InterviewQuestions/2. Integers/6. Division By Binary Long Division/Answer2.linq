@@ -68,16 +68,14 @@ public (int quotient, int remainder) UnsignedDivide(int dividend, int divisor)
 		// Calculate the product of quotient[i] and the divisor 
 		// as a part of calculating the remainder
 		int productTemp = quotient_i * divisor;
-		
-		// The remainder from this iteration is then the
-		// partialDividend[i] - (quotient_i * divisor) = 
-		//		partialDividend[i] % divisor
-		remainder = partialDividend_i - productTemp;
-		
-		// Note the previous two statements can be much 
-		// simplified in the case of binary
-		// which we do in Answer2
+
+		remainder = partialDividend_i;
+
+		// If the quotient digit q_i is non zero we subtract the 
+		// divisor fro, the dividendTemp
+		if ( quotient_i > 0 )
+			remainder -= divisor;
 	}
-	
-	return (quotient,remainder);
+
+	return (quotient, remainder);
 }
