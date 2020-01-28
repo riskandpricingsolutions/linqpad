@@ -23,35 +23,32 @@ public T[] MergeSort<T>(T[] a) where T : IComparable<T>
 	return a;
 }
 
-void MergeSort<T>(T[] a, int lo, int hi) where T : IComparable<T> 
+void MergeSort<T>(T[] a, int lo, int hi) where T : IComparable<T>
 {
-	if (lo <hi)
+	if (lo < hi)
 	{
-		int mid = (lo + hi) / 2;
+		int mid = (lo + hi ) / 2;
 		MergeSort(a,lo,mid);
 		MergeSort(a,mid+1,hi);
 		Merge(a,lo,mid,hi);
 	}
 }
 
-void Merge<T>(T[] a, int lo, int mid, int hi) where T : IComparable<T>
+private void Merge<T>(T[] a, int lo, int mid, int hi) where T : IComparable<T>
 {
-	// Populate the left array
-	T[] left = new T[mid - lo+1];
-	for (int i = 0; i < left.Length; i++) left[i] = a[lo + i];
-
-	// Populate the right array
-	T[] right = new T[hi - mid];
-	for (int i = 0; i < right.Length; i++) right[i] = a[mid +1+ i];
-
-	// Start the merge
-	int lIdx = 0, rIdx = 0;
-	for (int i = lo; i <= hi; i++)
+	T[] left = new T[mid-lo+1];
+	T[] right = new T[hi-mid];
+	
+	for (int i = 0; i < left.Length; i++) left[i] = a[lo+i];
+	for (int i = 0; i < right.Length; i++) right[i] = a[mid+1+i];
+	
+	int lId=0,rId=0;
+	for(int i=lo; i <= hi; i++)
 	{
-		if (lIdx == left.Length) a[i] = right[rIdx++];
-		else if (rIdx == right.Length) a[i] = left[lIdx++];
-		else if (left[lIdx].CompareTo(right[rIdx]) < 0) a[i] = left[lIdx++];
-		else a[i] = right[rIdx++];
+		if (lId==left.Length) a[i] = right[rId++];
+		else if (rId==right.Length) a[i] = left[lId++];
+		else if (left[lId].CompareTo(right[rId]) <=0) a[i] = left[lId++];
+		else a[i] = right[rId++];
 	}
 }
 
