@@ -25,45 +25,32 @@ public T[] QuickSort<T>(T[] a) where T : IComparable<T>
 
 public void QuickSort<T>(T[] a, int lo, int hi) where T : IComparable<T>
 {
-	if (hi>lo)
+	if (lo < hi)
 	{
-		int partition = Partition(a,lo,hi);
-		QuickSort(a,lo,partition-1);
-		QuickSort(a,partition+1,hi);
+		int pivotIdx = Partition(a,lo,hi);
+		QuickSort(a,lo,pivotIdx-1);
+		QuickSort(a,pivotIdx+1,hi);
 	}
 }
 
 int Partition<T>(T[] a, int lo, int hi) where T : IComparable<T>
 {
+	// Use the last element as the pivot
 	T pivot = a[hi];
-	
 	int i=lo-1;
-	for(int j=lo;j<hi;j++)
+	for (int j = lo; j < hi; j++)
 	{
-		// The element being compared is greater than the pivot
-		// simply move the upper bound of the greater section which is 
-		// maintained by j
-		if (a[j].CompareTo(pivot)>0)
+		if (a[j].CompareTo(pivot) >0)
 		{
+			// Do nothing and let the greater than array increase by 1
 		}
 		else
 		{
-			// The element being compared is leq the pivot. Move the 
-			// index  of smaller items (i) by one which temporarily
-			// includes it in the smaller section 
-			i++;
-			
-			// Now we swap i and j so put the bigger element in the
-			// big bucket and the small one in the small bucket
+			i = i+1;
 			Swap(a,i,j);
 		}
 	}
-	
-	// Finally we put the pivot in its place. We put it in the 
-	// first location above the small bucket meaning we know
-	// we swap it with a bigger element
-	Swap(a,i+1,hi);
-	
+	Swap(a,hi,i+1);
 	return i+1;
 }
 

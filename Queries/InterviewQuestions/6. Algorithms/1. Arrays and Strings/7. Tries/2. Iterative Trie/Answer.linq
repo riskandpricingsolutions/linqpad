@@ -97,6 +97,9 @@ public class Trie<TV>
 		
 		// Collect the results
 		Queue<string> results = new Queue<string>();
+		
+		// Holds the prefixes and strings
+		StringBuilder builder = new StringBuilder();
 
 		// Setup the initial stack frame as the root node 
 		// and push it onto the stack
@@ -110,7 +113,8 @@ public class Trie<TV>
 			
 			// If the is the first time we have seen this node
 			// and the value is set we add it to the queue
-			if (current.c == 0 and current.)
+			if (current.c == 0 && (!Equals(current.Node.Value,default(TV))))
+				results.Enqueue(builder.ToString());
 
 			// We might be part of the way though the children of 
 			// this node. Hence we start iterating from the index
@@ -119,6 +123,7 @@ public class Trie<TV>
 			{
 				if (current.Node.ChildNodes[c] != null)
 				{
+						
 					char ch = (char)c;
 					// We have found a child node representing 
 					// character ch. We will push this on the stack
@@ -127,6 +132,9 @@ public class Trie<TV>
 					current.c = c + 1;
 					stack.Push(current);
 					Console.WriteLine(ch);
+					
+					// Add the character to the stringbuilder
+					builder.Append(ch);
 
 					// Now create a stack frame for the child node
 					// and push that onto the stack
