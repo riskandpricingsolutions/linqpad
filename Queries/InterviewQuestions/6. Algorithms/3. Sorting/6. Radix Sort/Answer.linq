@@ -2,23 +2,35 @@
 
 void Main()
 {
-	int[] a = new[] { 2,5,3,0,2,3,0,3 };
+	int[] a = new[] {
+		
+		329,
+		457,
+		839,
+		436,
+		720,
+		355
+	};
 
 	Func<int[], int[], bool> compareResults = (b, c)
-		=> ((IStructuralEquatable)Sort(b,9)).Equals(c, EqualityComparer<int>.Default);
+		=> ((IStructuralEquatable)RadixSort(b,3)).Equals(c, EqualityComparer<int>.Default);
 
-//	MyExtensions.AreEqual(true, compareResults(new[] { 4, 3, 2 }, new[] { 2, 3, 4 }));
-//	MyExtensions.AreEqual(true, compareResults(new[] { 4, 2, 3 }, new[] { 2, 3, 4 }));
-//	MyExtensions.AreEqual(true, compareResults(new[] { 3, 4, 2 }, new[] { 2, 3, 4 }));
-//	MyExtensions.AreEqual(true, compareResults(new[] { 3, 2, 4 }, new[] { 2, 3, 4 }));
-//	MyExtensions.AreEqual(true, compareResults(new[] { 2, 4, 3 }, new[] { 2, 3, 4 }));
-//	MyExtensions.AreEqual(true, compareResults(new[] { 2, 3, 4 }, new[] { 2, 3, 4 }));
-//	MyExtensions.AreEqual(true, compareResults(new[] { 2, 8, 7, 1, 3, 5, 6, 4 }, new[] { 1, 2, 3, 4, 5, 6, 7, 8 }));
-	MyExtensions.AreEqual(true, compareResults(new[] { 2,5,3,0,2,3,0,3}, new[] { 0,0,2,2,3,3,3,5 }));
+	MyExtensions.AreEqual(true, compareResults(a , new[] { 329,355,436,457,657,720,839 }));
 }
 
-// Question: Implement CountSort
-public int[] Sort(int[] a, int k)
+// Question: Implement Radix Sort
+public int[] RadixSort(int[] a, int digits) {
+
+	for (int i = 0; i < digits; i++)
+	{
+		int e = i;
+		a = Sort(a,10, x=>(int)((x / Math.Pow(10,e))) % 10);
+	}
+	
+	return a;
+}
+
+public int[] Sort(int[] a, int k, Func<int,int> f)
 {
 	// Elements in a must be an integer between 0 and k 
 	// inclusive. 
@@ -26,7 +38,7 @@ public int[] Sort(int[] a, int k)
 
 	// Counts now holds the frequencies of each integer 
 	// 0..k in the input array a
-	for (int i = 0; i < a.Length; i++) counts[a[i]]++;
+	for (int i = 0; i < a.Length; i++) counts[f(a[i])]++;
 
 	// Each index i in counts now holds the number of 
 	// elements in the input array with value <= i
@@ -40,7 +52,7 @@ public int[] Sort(int[] a, int k)
 	{
 
 		// The value in the source array
-		int x = a[i];
+		int x = f(a[i]);
 
 		// The number of elements in the input
 		// array whose value is less than or 
@@ -52,7 +64,7 @@ public int[] Sort(int[] a, int k)
 		// nth element in the sorted list. In 
 		// a 0 based array the nth element is at
 		// index n-1		
-		b[n - 1] = x;
+		b[n - 1] = a[i];
 
 		// Decrement the number in counts[x]
 		counts[x] = counts[x] - 1;
