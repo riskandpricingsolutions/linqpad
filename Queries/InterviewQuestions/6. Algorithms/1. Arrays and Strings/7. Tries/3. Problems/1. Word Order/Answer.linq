@@ -2,29 +2,35 @@
 
 void Main()
 {
-	Solution.ReplaceWords(new List<string> {'cat',});	
+	var r = Solution.ReplaceWords(new List<string>() {"cat","bat","rat"},"the cattle was rattled by the battery");	
 }
 
 public class Solution
 {
 	public static string ReplaceWords(IList<string> dict, string sentence)
 	{
+		Trie trie = new Trie();
 
-		Trie st = new Trie();
+		// Add the roots to the trie
+		foreach (string root in dict) trie.Insert(root);
 
-		foreach (string root in dict)
-			st.Insert(root);
-
+		// Get the words in the sentence
 		string[] words = sentence.Split(' ');
-
-		foreach (var word in words)
-			sentence.Replace(word, st.GetRoot(word));
-
-		return sentence;
+		
+		
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < words.Length; i++)
+		{
+			var root = trie.GetRoot(words[i]);
+			result.Append(root ?? words[i]);
+			if (i != words.Length-1) result.Append(" ");
+		}
+		
+		return result.ToString();
 	}
 }
 
-public class Trie
+public class Trie 	
 {
 
 	/** Initialize your data structure here. */
@@ -100,7 +106,7 @@ public class Trie
 
 	public class Node
 	{
-		public Node[] Children = new Node[256];
+		public Node[] Children = new Node[26];
 		public bool IsWord = false;
 	}
 
