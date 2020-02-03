@@ -2,34 +2,18 @@
 
 void Main()
 {
-	//string s = "se she";
 	string s = "she sell shells spa";
-	//string s = "she";
 	string[] a = s.Split(' ');
 
 	Trie<int> st = new Trie<int>();
 	for (int i = 0; i < a.Length; i++)
-	{
 		st.Put(a[i], i + 1);
-	}
-
-	//	int res = st.Get("sells");
-	//	int res2 = st.Get("niss");
-
-	Console.WriteLine("keys(\"\"):");
+		
 	st.DepthFirstTraversal();
-	//	foreach (String key in st.Keys())
-	//	{
-	//		int v = st.Get(key);
-	//		Console.WriteLine(key + " " + ((v == 0) ? "" : v.ToString()));
-	//	}
-	Console.WriteLine();
-
 }
 
 
 // Question: Implement an Iterative Trie
-
 public class Trie<TV>
 {
 	/// <summary>
@@ -95,12 +79,6 @@ public class Trie<TV>
 		// Setup a stack
 		Stack<StackFrame> stack = new Stack<StackFrame>();
 		
-		// Collect the results
-		Queue<string> results = new Queue<string>();
-		
-		// Holds the prefixes and strings
-		StringBuilder builder = new StringBuilder();
-
 		// Setup the initial stack frame as the root node 
 		// and push it onto the stack
 		StackFrame current = new StackFrame() {Node = _root, c=0};
@@ -111,66 +89,39 @@ public class Trie<TV>
 			// Pop the top of the stack and start working on it
 			current = stack.Pop();
 			
-			// If the is the first time we have seen this node
-			// and the value is set we add it to the queue
-			if (current.c == 0 && (!Equals(current.Node.Value,default(TV))))
-				results.Enqueue(builder.ToString());
-
 			// We might be part of the way though the children of 
 			// this node. Hence we start iterating from the index
 			// stored in the current stack frame.
-			for (int c = current.c; c < _radix; c++)
+			for (int c = current.c; c <= _radix; c++)
 			{
-				if (current.Node.ChildNodes[c] != null)
+				if (c != _radix)
 				{
+					if (current.Node.ChildNodes[c] != null)
+					{
+						// We have found a child node representing 
+						// character ch. 
+						char ch = (char)c;
 						
-					char ch = (char)c;
-					// We have found a child node representing 
-					// character ch. We will push this on the stack
-					// but first we need to push the current node 
-					// as we have not completed working on it
-					current.c = c + 1;
-					stack.Push(current);
-					Console.WriteLine(ch);
-					
-					// Add the character to the stringbuilder
-					builder.Append(ch);
+						// Create a child stack frame for current.Node.ChildNodes[c]
+						StackFrame childStackFrame = new StackFrame() { Node = current.Node.ChildNodes[c], c = 0 };
 
-					// Now create a stack frame for the child node
-					// and push that onto the stack
-					StackFrame snap = new StackFrame() { Node = current.Node.ChildNodes[c], c = 0};
-					stack.Push(snap);
-					
-					// Break out the loop as we need to process the child node next
-					break;
+						// Before we push the childStackFrame onto the stack we need to push 
+						// the current frame first. This ensures when the child is finished
+						// we come back and complete the work at this level.
+						current.c = c + 1;
+						stack.Push(current);
+						Console.WriteLine(ch);
+
+						// Now push the child stack frame onto the stack
+						stack.Push(childStackFrame);
+
+						// Break out the loop as we need to process the child node next
+						break;
+					}
 				}
-
 			}
 		}
 	}
-
-
-	private void Collect(Node<TV> x, StringBuilder prefix, Queue<string> results)
-	{
-		if (x == null) return;
-		if (!Object.Equals(x.Value, default(TV))) results.Enqueue(prefix.ToString());
-
-		for (int c = 0; c < _radix; c++)
-		{
-			prefix.Append((char)c);
-			Collect(x.ChildNodes[c], prefix, results);
-			prefix.Remove(prefix.Length - 1, 1);
-		}
-	}
-
-//	public IEnumerable<string> KeysWithPrefix(string prefix)
-//	{
-//		Queue<String> results = new Queue<String>();
-//		Node<TV> x = Get(_root, prefix, 0);
-//		Collect(x, new StringBuilder(prefix), results);
-//		return results;
-//	}
-
 
 	private class StackFrame
 	{
@@ -178,7 +129,6 @@ public class Trie<TV>
 		public int c {get;set;}
 	};
 
-	//public IEnumerable<string> Keys() => KeysWithPrefix("");
 	private static int _radix;
 	private Node<TV> _root ;
 }
