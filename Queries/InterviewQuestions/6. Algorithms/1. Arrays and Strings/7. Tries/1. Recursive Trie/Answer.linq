@@ -30,6 +30,9 @@ void Main()
 	// 
 	var matchKeys = st.KeysThatMatch(".h.").ToArray();
 	MyExtensions.AreEqual(true, compareResults(new string[] { "she", "the" }, prefixKeys));
+	
+	
+	MyExtensions.AreEqual(true, st.IsPresent("t.e"));
 }
 
 public class Trie<TV>
@@ -118,6 +121,51 @@ public class Trie<TV>
 		return q;
 	}
 
+	public bool IsPresent(string pattern) => IsPresent(_root,"",pattern);
+	
+
+	public bool IsPresent(Node<TV> node, string prefix, string pattern)
+	{
+		if (node == null) return false;
+
+		int prefixLength = prefix.Length;
+		int patternLength = pattern.Length;
+
+		if (prefixLength == patternLength)
+		{
+			// The prefix matches the pattern and is a valid word
+			// so add it to the q
+			if (!Object.Equals(node.Value, default(TV)))
+				return true;
+
+			// No point going further as longer strings 
+			// cannot match the pattern
+			return false;
+		}
+
+		char nextPatternChar = pattern[prefixLength];
+		bool isPresent = false;
+		for (int i = 0; i < 26; i++)
+		{
+			char nextPossiblePrefixChar = (char)('a' + i);
+
+			if (nextPatternChar == '.' || nextPatternChar == nextPossiblePrefixChar)
+			{
+				var childNode = node.ChildNodes[i];
+				
+				bool ip = IsPresent(childNode, prefix + nextPatternChar, pattern);
+				if (ip == true)
+				{
+					isPresent = true;
+					break;
+				}
+					
+			}
+		}
+		
+		return isPresent;
+	}
+
 	public void Collect(Node<TV> node, string prefix, string pattern, Queue<string> matchedWords)
 	{
 		if (node == null) return;
@@ -149,8 +197,6 @@ public class Trie<TV>
 			}
 		}
 	}
-	
-	
 
 	private Node<TV> _root;
 }

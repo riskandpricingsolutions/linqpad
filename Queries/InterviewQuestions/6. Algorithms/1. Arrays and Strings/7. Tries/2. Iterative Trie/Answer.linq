@@ -2,14 +2,24 @@
 
 void Main()
 {
-	string s = "she sell shells spa";
+	//string s = "she sells sea shells on the sea shore";
+	string s = "bad dad mad";
 	string[] a = s.Split(' ');
 
-	Trie<int> st = new Trie<int>();
+	Trie<int?> st = new Trie<int?>();
+
+	// Test Put
 	for (int i = 0; i < a.Length; i++)
 		st.Put(a[i], i + 1);
-		
-	st.DepthFirstTraversal();
+
+	// Test Get
+	MyExtensions.AreEqual(1, st.Get("she"));
+	MyExtensions.AreEqual(8, st.Get("shore"));
+	MyExtensions.AreEqual(null, st.Get(""));
+
+
+//["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
+//[[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
 }
 
 
