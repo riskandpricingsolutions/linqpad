@@ -28,6 +28,10 @@ void Main()
 	// Test InOrderTraversal
 	seq = bst.InOrderTraversal().Select(node => node.Key).ToArray();
 	MyExtensions.AreEqual(true, new string[] { "A", "B", "C", "D", "E"}.SequenceEqual(seq));
+
+	//BFS
+	var seq2 = bst.BreadthFirstTraversal().Select(node => node).ToArray();
+	MyExtensions.AreEqual(true, new string[] { "D", "B", "E", "A", "C" }.SequenceEqual(seq2));
 }
 
 public class BinarySearchTreeRecursive<TK, TV> : ISymbolTable<TK, TV> where TK : IComparable<TK>
@@ -93,6 +97,25 @@ public class BinarySearchTreeRecursive<TK, TV> : ISymbolTable<TK, TV> where TK :
 	{
 		set => _root = PutRecursive(_root, key, value);
 		get => GetRecursive(_root, key);
+	}
+
+	public IEnumerable<TK> BreadthFirstTraversal()
+	{
+		Queue<TreeNode<TK, TV>> queue = new Queue<UserQuery.TreeNode<TK, TV>>();
+		Queue<TK> values = new Queue<TK>();
+
+		queue.Enqueue(_root);
+
+		while (queue.Count > 0)
+		{
+			var node = queue.Dequeue();
+			values.Enqueue(node.Key);
+
+			if (node.Left != null) queue.Enqueue(node.Left);
+			if (node.Left != null) queue.Enqueue(node.Right);
+		}
+
+		return values;
 	}
 
 	public IEnumerable<KeyValuePair<TK, TV>> PostOrderTraversal()

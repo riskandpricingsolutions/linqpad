@@ -4,7 +4,7 @@
 
 static void Main()
 {
-	foreach (int[] c in Combinations(3, 3))
+	foreach (int[] c in Combinations(2, 3))
 	{
 		Console.WriteLine(string.Join(",", c));
 		Console.WriteLine();
@@ -35,4 +35,3 @@ public static IEnumerable<int[]> Combinations(int m, int n)
 		}
 	}
 }
-
