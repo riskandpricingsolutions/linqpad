@@ -14,7 +14,11 @@ void Main()
 	Task t2 = new Task(Function);
 	Task t3 = new Task(Function);
 	
+	// Use the thread pool
 	t1.Start(TaskScheduler.Default);
+	
+	// Use the thread the current task is running on.
+	// When not executing on a task use the default scheduler
 	t2.Start(TaskScheduler.Current);
 }
 

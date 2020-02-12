@@ -4,6 +4,7 @@
   <Namespace>System.Runtime.CompilerServices</Namespace>
 </Query>
 
+
 static ILog logger = LogManager.GetLogger(nameof(Main));
 
 async void Main()

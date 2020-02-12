@@ -18,8 +18,9 @@ void Main()
 	w.SizeToContent = SizeToContent.WidthAndHeight;
 	w.Content = b;
 
-	// Question: Add a handler to B that when clicks starts a 
+	// Question: Add a handler to B that when clicked starts a 
 	//           task on a background thread and after while 
 	//           executes another task that sets the button 
 	//           background to Red.
+	
 }

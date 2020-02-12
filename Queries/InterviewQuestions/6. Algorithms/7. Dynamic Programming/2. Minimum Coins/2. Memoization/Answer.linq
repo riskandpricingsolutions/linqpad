@@ -13,7 +13,6 @@ int numCalls;
 // Question. Solve the minimum coins using Memoization
 public int MinCoins(int[] coins, int amount, IDictionary<int,int> memo)
 {
-	numCalls++;
 	// Terminating case that causes
 	// recursion to bottom out.
 	if (amount == 0) return 0;

@@ -25,19 +25,3 @@ public void UpdateValue()
 	temp = temp + 10;
 	count = temp;
 }
-
-
-public class MySpinLock
-{
-	private int taken = 0;
-	
-	public void Enter()
-	{
-		throw new NotSupportedException();
-	}
-	
-	public void Leave()
-	{
-		throw new NotSupportedException();
-	}
-}

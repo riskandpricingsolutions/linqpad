@@ -24,4 +24,18 @@ public class AwaitableType<TResult>
 {
 	private TResult _result;
 	public AwaitableType(TResult result) => _result = result;
+	public MyAwaiter<TResult> GetAwaiter() => new MyAwaiter<TResult>(_result);
+}
+
+public class MyAwaiter<TResult> : INotifyCompletion
+{
+	private TResult _result;
+	public MyAwaiter(TResult result) => _result = result;
+	public TResult GetValue() => _result;
+
+	
+	public void OnCompleted(Action continuation)
+	{
+		continuation();
+	}
 }

@@ -1,4 +1,5 @@
 <Query Kind="Program">
+  <Namespace>static System.Console</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
 </Query>
 
@@ -9,3 +10,4 @@ void Main()
 	//           executes code on current thread. Demonstrate
 	//           its use.
 }
+

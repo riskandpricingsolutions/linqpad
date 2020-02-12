@@ -1,4 +1,5 @@
 <Query Kind="Program">
+  <Namespace>static System.Console</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
 </Query>
 

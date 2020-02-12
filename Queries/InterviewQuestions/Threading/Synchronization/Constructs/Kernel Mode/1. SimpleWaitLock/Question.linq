@@ -33,7 +33,14 @@ public void UpdateValue()
 
 public class SimpleWaitLock
 {
-	public void Enter() => throw new NotImplementedException();
+	private AutoResetEvent _autoResetEvent = new AutoResetEvent(true);
+	public void Enter() 
+	{
+		_autoResetEvent.WaitOne();
+	}
 
-	public void Leave() => throw new NotImplementedException();
+	public void Leave() 
+	{
+		_autoResetEvent.Set();
+	}
 }
