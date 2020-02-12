@@ -9,16 +9,20 @@ void Main()
 	MyExtensions.AreEqual(3, FibonacciRecursive(4));
 }
 
-// Question: Implement Recursive Binary Search
-public static int FibonacciRecursive(int n)
+// Question: Implement Recursive Fibonacci and use Memoization to improve perf
+public static int FibonacciRecursive(int x)
 {
-	if (n == 0)
-		return 0;
-	if (n == 1)
-		return 1;
+	var cache = new int[x + 1];
 
-	return FibonacciRecursive(n - 1) + FibonacciRecursive(n - 2);
+	int F(int x1)
+	{
+		if (x1 == 0 || x1 == 1) return x1;
+
+		if (cache[x1] == 0)
+			cache[x1] = F(x1 - 1) + F(x1 - 2);
+
+		return cache[x1];
+	}
+
+	return F(x);
 }
-
-
-

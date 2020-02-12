@@ -2,8 +2,8 @@
 
 void Main()
 {
-//	MyExtensions.AreEqual(7,MinCoins(new int[] { 1,15, 35},55));
-//	MyExtensions.AreEqual(2,MinCoins(new int[] { 25,10, 5},30));
+	MyExtensions.AreEqual(7,MinCoins(new int[] { 1,15, 35},55));
+	MyExtensions.AreEqual(2,MinCoins(new int[] { 25,10, 5},30));
 	MyExtensions.AreEqual(2,MinCoins(new int[] { 9,6,5,1},11));
 	
 }
@@ -53,5 +53,3 @@ static int MinCoins(int[] coinValues,
 	}
 	return table[totalAmount];
 }
-
-	 
