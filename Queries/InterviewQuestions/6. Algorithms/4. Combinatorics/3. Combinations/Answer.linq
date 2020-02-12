@@ -2,11 +2,11 @@
 
 void Main()
 {
-	GeneratePermutations(new int[] {1,2,3,4,5},new int[3],0,0, a=>PrintCombination(a));
+	GenerateCombinations(new int[] {0,1,2,3,4},new int[2],0,0, a=>PrintCombination(a));
 }
 
 
-public void GeneratePermutations(int[] set, 
+public void GenerateCombinations(int[] set, 
 							int[] combination,
 							int combinationIdx,
 							int firstSetIdx,
@@ -22,7 +22,7 @@ public void GeneratePermutations(int[] set,
 	{
 		combination[combinationIdx] = set[setIdx];
 		
-		GeneratePermutations(set, combination,combinationIdx + 1, setIdx + 1
+		GenerateCombinations(set, combination,combinationIdx + 1, setIdx + 1
 			,visit);
 	}
 }

@@ -34,10 +34,18 @@ void Main()
 	MyExtensions.AreEqual(true, new string[] { "D", "B", "E", "A", "C" }.SequenceEqual(seq2));
 }
 
-public class BinarySearchTreeRecursive<TK, TV> : ISymbolTable<TK, TV> where TK : IComparable<TK>
+public class BinarySearchTreeRecursive<TK, TV> where TK : IComparable<TK>
 {
-	private TreeNode<TK, TV> _root;
-	
+	/// Get/Set value by searchKey
+	/// </summary>
+	/// <param name="key">The searchKey</param>
+	/// <returns>The value</returns>
+	public TV this[TK key]
+	{
+		set => _root = PutRecursive(_root, key, value);
+		get => GetRecursive(_root, key);
+	}
+
 	private static TreeNode<TK, TV> PutRecursive(TreeNode<TK, TV> node, TK key, TV value)
 	{
 		// We have moved left or right down the tree and reached a 
@@ -85,18 +93,6 @@ public class BinarySearchTreeRecursive<TK, TV> : ISymbolTable<TK, TV> where TK :
 		// We move left or right depending on whether the searchKey is greater than or
 		// equal to the searchKey at this node.l
 		return (compareTo > 0) ? GetRecursive(node.Right, key) : GetRecursive(node.Left, key);
-	}
-
-
-	/// <summary>
-	/// Get/Set value by searchKey
-	/// </summary>
-	/// <param name="key">The searchKey</param>
-	/// <returns>The value</returns>
-	public TV this[TK key]
-	{
-		set => _root = PutRecursive(_root, key, value);
-		get => GetRecursive(_root, key);
 	}
 
 	public IEnumerable<TK> BreadthFirstTraversal()
@@ -160,17 +156,9 @@ public class BinarySearchTreeRecursive<TK, TV> : ISymbolTable<TK, TV> where TK :
 		return q;
 	}
 
-
-	
-	
+	private TreeNode<TK, TV> _root;
 }
 
-// Define other methods and classes here
-public interface ISymbolTable<TK, TV>
-{
-	TV this[TK key] { get; set; }
-
-}
 
 [DebuggerDisplay("Key={Key},Value={Value},Size={Size}")]
 public class TreeNode<TK, TV> where TK : IComparable<TK>
