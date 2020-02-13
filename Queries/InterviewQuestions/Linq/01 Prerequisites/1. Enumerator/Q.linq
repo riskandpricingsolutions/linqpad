@@ -1,6 +1,5 @@
 <Query Kind="Program" />
 
-
 // Question: Implement IEnumerator<int> so that it 
 //           produces a sequence of integers from 0 to 3
 public class MyEnumerator 
@@ -25,4 +24,3 @@ void Main()
 	MyExtensions.AreEqual(0, results1.First());
 	MyExtensions.AreEqual(3, results1.Last());
 }
-

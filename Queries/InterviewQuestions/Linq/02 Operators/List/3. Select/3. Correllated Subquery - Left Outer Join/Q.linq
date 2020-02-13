@@ -7,11 +7,7 @@ void Main()
 
 	// Question: Use select to perform a correlated subquery that
 	//           creates an unflattened left outer join
-	var result = inseq1.Select(left =>
-	{
-		return new { Left = left, Right = inseq2.Where(right => left.Item1 == right.Item1) };
-	});
-	
+
 	result.Dump();
 
 }

@@ -2,17 +2,24 @@
 
 void Main()
 {
-	MyExtensions.AreEqual(7,MinCoins(new int[] { 1,15, 35},55));
-	MyExtensions.AreEqual(2,MinCoins(new int[] { 25,10, 5},30));
-	MyExtensions.AreEqual(2,MinCoins(new int[] { 9,6,5,1},11));
-	
+	var coins = new int[] { 1,15, 35};
+	var s1 = MinCoins(coins,55);
+	for (int i = 0; i < coins.Length; i++)
+	{
+		Console.Write($"{s1[i]}x{coins[i]}, ");
+	}
 }
 
 // m is size of coins array  
 // (number of different coins) 
-static int MinCoins(int[] coins,
+static int[] MinCoins(int[] coins,
 					int totalAmount)
 {
+	// Maintain a separate two dimensional array to
+	// track the actual coins that make up the solution and not just 
+	// the number of coins.
+	int[][] actualCoins = new int[totalAmount+1][];
+	for (int i = 0; i <= totalAmount; i++) actualCoins[i] = new int[coins.Length];
 	
 	
 	int numCoins = coins.Length;
@@ -47,6 +54,10 @@ static int MinCoins(int[] coins,
 			// that or equal to the amount we need to achieve
 			if (coin <= amount)
 			{
+				for (int t = 0; t < coins.Length; t++)
+					actualCoins[amount][t] = actualCoins[amount-coin][t];
+				actualCoins[amount][coinIdx] = actualCoins[amount][coinIdx]+1;
+			
 				// What is the minimum number of coins needed to
 				// represent amount-coin? Since this amount is 
 				// by definition less than amount it must already
@@ -60,5 +71,5 @@ static int MinCoins(int[] coins,
 			}
 		}
 	}
-	return table[totalAmount];
+	return actualCoins[totalAmount];
 }

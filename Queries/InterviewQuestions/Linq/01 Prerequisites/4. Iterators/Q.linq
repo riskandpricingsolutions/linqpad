@@ -2,7 +2,10 @@
 
 // Question Write an iterator to calculate the first n elements
 // of the fibonacci series
-IEnumerable<int> GetFibonacci(int numEntries) => throw new NotImplementedException();
+IEnumerable<int> GetFibonacci(int numEntries) 
+{
+
+}
 
 void Main()
 {
