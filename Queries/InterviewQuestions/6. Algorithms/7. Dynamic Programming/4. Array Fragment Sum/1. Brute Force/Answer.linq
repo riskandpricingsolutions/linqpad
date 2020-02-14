@@ -2,7 +2,6 @@
 
 void Main()
 {
-	//MyExtensions.AreEqual(2, Fragments(new int[] { 1, 2, 1 },3));
 	MyExtensions.AreEqual(4, Fragments(new int[] { 3,4,7,2,-3,1,4,2 },7));
 }
 
