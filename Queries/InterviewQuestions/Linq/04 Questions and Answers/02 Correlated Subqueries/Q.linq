@@ -2,5 +2,5 @@
 
 void Main()
 {
-	var inseq1 = new [] {(1, "one"),(2, "two"),(3, "three")};	
+	var sIn = new[] { "Hello World", "Moi Vaimoni", "Miten menee"};
 }

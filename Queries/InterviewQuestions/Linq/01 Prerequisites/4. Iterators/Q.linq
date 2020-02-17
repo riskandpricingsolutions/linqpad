@@ -4,7 +4,13 @@
 // of the fibonacci series
 IEnumerable<int> GetFibonacci(int numEntries) 
 {
-
+	for (int current=0,next=1; current<numEntries; )
+	{
+		yield return current;
+		int nextNext = next+current;
+		current = next;
+		next = nextNext;
+	}
 }
 
 void Main()

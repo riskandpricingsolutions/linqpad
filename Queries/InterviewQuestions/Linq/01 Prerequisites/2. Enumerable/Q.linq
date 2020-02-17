@@ -2,9 +2,14 @@
 
 // Question: Implement IEnumerable<int> such that it
 //           produces a sequence of integers from 0 to 3
-public class MyEnumerable 
+public class MyEnumerable : IEnumerable<int>
 {
+	public IEnumerator<int> GetEnumerator()
+	{
+		return new MyEnumerator();
+	}
 
+	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
 
 public class MyEnumerator : IEnumerator<int>

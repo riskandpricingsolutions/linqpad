@@ -11,5 +11,8 @@ void Main()
 	}
 	
 
-	// Question: Show what the compiler generates when it sees a foreach
+	using (var enumerator = l.GetEnumerator())
+	{
+		while (enumerator.MoveNext()) Console.WriteLine(enumerator.Current);
+	}
 }

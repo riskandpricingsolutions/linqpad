@@ -1,13 +1,11 @@
-<Query Kind="Program" />
+<Query Kind="Statements" />
 
-void Main()
-{
-	var inseq1 = new[] { "Hello World", "Moi Vaimoni", "Miten menee"};
+
+var sIn = new[] { "Hello World", "Moi Vaimoni", "Miten menee"};
 	
-	var f = inseq1.Select(i => i.Split());
-	f.Dump();
+var f = sIn.Select(i => i.Split());
+f.Dump();
 	
-	var q =from n in inseq1 select n.Split();
-	q.Dump();
+var q =from n in sIn select n.Split();
+q.Dump();
 	
-}
