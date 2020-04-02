@@ -4,25 +4,17 @@
 
 void Main()
 {
-	IArrayList<int> list = new ArrayList<int>(2);
-	list.Add(4);
-	list.Add(5);
-	list.Add(6);
-
-	MyExtensions.AreEqual(4, list[0]);
-	MyExtensions.AreEqual(5, list[1]);
-	MyExtensions.AreEqual(6, list[2]);
-	MyExtensions.AreEqual(3, list.Count);
-	list.RemoveAt(2);
-	MyExtensions.AreEqual(2, list.Count);
+	IArrayList<int> _list = new ArrayList<int>(2);
+	_list.Add(4);
+	_list.Add(5);
+	_list.Add(6);
 }
 
-// Question: Write an ArrayList
 public class ArrayList<T> : IArrayList<T>
 {
-	public ArrayList(long initialCapacity)
+	public ArrayList(long initialSize)
 	{
-		_storage = new T[initialCapacity];
+		_storage = new T[initialSize];
 	}
 
 	/// <summary>
@@ -33,14 +25,10 @@ public class ArrayList<T> : IArrayList<T>
 	/// <param name="element"></param>
 	public void Add(T element)
 	{
-		// Because arrays are zero based, the first time 
-		// the the next free element equals the length of 
-		// the storage we are off the end and need to increase the
-		// size.
-		if (_storage.Length == nextFreeElementIndex)
-			Resize(nextFreeElementIndex * 2);
+		if (_storage.Length == _size)
+			Resize(_size * 2);
 
-		_storage[nextFreeElementIndex++] = element;
+		_storage[_size++] = element;
 	}
 
 	/// <summary>
@@ -49,15 +37,11 @@ public class ArrayList<T> : IArrayList<T>
 	/// <param name="index"></param>
 	public void RemoveAt(int index)
 	{
-		if (index < 0 || index > nextFreeElementIndex - 1)
+		if (index < 0 || index > _size - 1)
 			throw new ArgumentOutOfRangeException();
 
-		Array.Copy(_storage, index + 1, _storage, index, nextFreeElementIndex - (index + 1));
-		
-		// If T is a reference type set it to null to prevent loitering
-		_storage[nextFreeElementIndex] = default(T);
-		
-		nextFreeElementIndex--;
+		Array.Copy(_storage, index + 1, _storage, index, _size - (index + 1));
+		_size--;
 	}
 
 	/// <summary>
@@ -79,11 +63,11 @@ public class ArrayList<T> : IArrayList<T>
 	/// <param name="element"></param>
 	public void Insert(int index, T element)
 	{
-		if (_storage.Length == nextFreeElementIndex)
-			Resize(nextFreeElementIndex * 2);
+		if (_storage.Length == _size)
+			Resize(_size * 2);
 
-		Array.Copy(_storage, index, _storage, index + 1, nextFreeElementIndex - index);
-		nextFreeElementIndex++;
+		Array.Copy(_storage, index, _storage, index + 1, _size - index);
+		_size++;
 	}
 
 	/// <summary>
@@ -95,13 +79,13 @@ public class ArrayList<T> : IArrayList<T>
 	{
 		get
 		{
-			if (index < 0 || index > nextFreeElementIndex - 1)
+			if (index < 0 || index > _size - 1)
 				throw new ArgumentOutOfRangeException();
 			return _storage[index];
 		}
 		set
 		{
-			if (index < 0 || index > nextFreeElementIndex - 1)
+			if (index < 0 || index > _size - 1)
 				throw new ArgumentOutOfRangeException();
 			_storage[index] = value;
 		}
@@ -110,9 +94,9 @@ public class ArrayList<T> : IArrayList<T>
 	public override string ToString()
 	{
 		StringBuilder b = new StringBuilder("[");
-		for (int i = 0; i < nextFreeElementIndex; i++)
+		for (int i = 0; i < _size; i++)
 		{
-			if (i == nextFreeElementIndex - 1)
+			if (i == _size - 1)
 				b.Append(_storage[i]);
 			else
 				b.Append($"{_storage[i].ToString()},");
@@ -126,12 +110,11 @@ public class ArrayList<T> : IArrayList<T>
 	private void Resize(long newSize)
 	{
 		T[] newStorage = new T[newSize];
-		Array.Copy(_storage, newStorage, nextFreeElementIndex);
+		Array.Copy(_storage, newStorage, _size);
 		_storage = newStorage;
 	}
 
 	private T[] _storage;
-	private int nextFreeElementIndex = 0;
+	private int _size = 0;
 
-	public long Count => nextFreeElementIndex;
 }

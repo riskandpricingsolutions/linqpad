@@ -32,5 +32,3 @@ void Main()
 	// a ^ ~a
 	MyExtensions.AreEqual<sbyte>((sbyte)~0, (sbyte)(a ^ ~a));
 }
-
-

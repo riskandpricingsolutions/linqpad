@@ -10,6 +10,11 @@ void Main()
 		Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
 	}
 	
+	Task t1 = new Task( ()=> Function());
+	Task t2 = new Task( () => Function());
+	
+	t1.Start(TaskScheduler.Current);
+	t2.Start(TaskScheduler.Default);
 }
 
 // Define other methods and classes here

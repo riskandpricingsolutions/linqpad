@@ -16,7 +16,7 @@
 //
 // Because we block on results even though the second result is available earlier
 // it is not processed as a log until after the longer running one completes
-static ILog logger = LogManager.GetLogger(nameof(Main));
+static ILog logger = LogManager.GetLogger(typeof(UserQuery));
 
 void Main()
 {

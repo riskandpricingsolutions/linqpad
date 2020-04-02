@@ -29,31 +29,31 @@ void Main()
 }
 // Question: Return true or false reflecting whether or not
 // --------- bit i is set to 0 or 1
-public bool GetBit(int n, int i) => ((n >> i) & 1) != 0; 
+public bool GetBit(int n, int i) => throw new NotImplementedException();
 
 
 // Question: Set bit i to 1
 // --------- 
-public int SetBit(int n, int i) => (1 << i) | n;
+public int SetBit(int n, int i) => throw new NotImplementedException();
 
 
 // Question: Clear bit i to 0
 // --------- 
-public int ClearBit(int n, int i) => (~(1 << i)) & n;
+public int ClearBit(int n, int i) => throw new NotImplementedException();
 
 // Question: Clear all bits from the msb to the bit in 
 // --------- in index i inclusive
-public int ClearFromMsbToI(int n, int i) => ((1 << i)-1) & n;
+public int ClearFromMsbToI(int n, int i) => throw new NotImplementedException();
 
 // Question: Set all bits from the msb to the bit 
 // --------- in index i inclusive
-public int SetFromMsbToI(int n, int i) => (~((i << 1)-1)) | n;
+public int SetFromMsbToI(int n, int i) => throw new NotImplementedException();
 
 
 // Question: Clear all bits from the lsb to the bit in 
 // --------- in index i inclusive
-public int ClearFromLsbToI(int n, int i) =>  (~0 << (i+1)) & n;
+public int ClearFromLsbToI(int n, int i) => throw new NotImplementedException();
 
 // Question: Set all bits from the lsb to the bit 
 // --------- in index i inclusive
-public int SetFromLsbToI(int n, int i) => ((1 << (i+1))-1) | n;
+public int SetFromLsbToI(int n, int i) => throw new NotImplementedException();

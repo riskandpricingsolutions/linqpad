@@ -5,7 +5,7 @@
 
 // Question:	What is the output of the following code and why
 
-static ILog logger = LogManager.GetLogger(nameof(Main));
+static ILog logger = LogManager.GetLogger(typeof(UserQuery));
 
 void Main()
 {

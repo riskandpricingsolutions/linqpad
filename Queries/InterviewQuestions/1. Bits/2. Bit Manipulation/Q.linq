@@ -14,33 +14,36 @@ void Main()
 // Question: 
 //		Implement this function to return a mask of all
 // 		zeroes except a single 1 in bit location i
-public static sbyte MaskOne(int i) => (sbyte)(1 << i);
+public static sbyte MaskOne(int i) => throw new NotImplementedException();
+
 
 // Question: 
 //		Implement this function to return a mask of all
 // 		one except a single zero in bit location i
-public static sbyte MaskTwo(int i) => (sbyte)(~(1 << i));
+public static sbyte MaskTwo(int i) => throw new NotImplementedException();
+
 
 // Question: 
 //		Implement this function to return a mask of all
 // 		ones except for zeros in the n least significant bits
-public static sbyte MaskThree(int i) => (sbyte)(~0 << i);
+public static sbyte MaskThree(int i) => throw new NotImplementedException();
+
 
 // Question: 
 //		Implement this function to return a mask of all
 // 		zeroes except for ones in the n least significant bits
-public static sbyte MaskFour(int i) => (sbyte)((1<<i)-1);
+public static sbyte MaskFour(int i) => throw new NotImplementedException();
 
 // Question: 
 //		Implement this function to return a mask of all
 // 		0s except for digits i through j inclusive 
 //      which contain 1s
-public static sbyte MaskFive(int i, int j) => (sbyte)(((1 <<(j-i+1))-1) << i);
+public static sbyte MaskFive(int i, int j) => throw new NotImplementedException();
 
 // Question: 
 //		Implement this function to return a mask of all
 // 		1s except for digits i through j which contain 0s
-public static sbyte MaskSix(int i, int j) => (sbyte)~(((1 << j - i+1) - 1) << i);
+public static sbyte MaskSix(int i, int j) => throw new NotImplementedException();
 // Question: 
 //		Implement integer subtraction without using the - key
 public static sbyte Subtract(sbyte a, sbyte b) => throw new NotImplementedException();

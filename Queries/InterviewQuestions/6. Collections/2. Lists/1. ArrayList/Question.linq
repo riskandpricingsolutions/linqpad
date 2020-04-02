@@ -1,39 +1,40 @@
 <Query Kind="Program" />
 
+#load ".\IArrayList"
+
 void Main()
 {
-	IArrayList<int> _list = new ArrayList<int>(2);
-	_list.Add(4);
-    _list.Add(5);
-     _list.Add(6);
+	IArrayList<int> list = new ArrayList<int>(2);
+	list.Add(4);
+    list.Add(5);
+    list.Add(6);
+
+	MyExtensions.AreEqual(4, list[0]);
+	MyExtensions.AreEqual(5, list[0]);
+	MyExtensions.AreEqual(6, list[0]);
+	MyExtensions.AreEqual(3, list.Count);
+	list.RemoveAt(2);
+	MyExtensions.AreEqual(2, list.Count);
 }
 
 // Question: Write an ArrayList
-
-public interface IArrayList<T>
-{
-	// Add an element to the end of the list
-	void Add(T element);
-
-	// Remove the element at the given index.
-	void RemoveAt(int index);
-
-	/// <summary>
-	/// Add a range of elements to the end of the list
-	/// </summary>
-	/// <param name="elements"></param>
-	void AddRange(IEnumerable<T> elements);
-
-	void Insert(int index, T element);
-
-	// Index based access
-	T this[int index] { get; set; }
-}
-
 public class ArrayList<T> : IArrayList<T>
 {
+	
 	public ArrayList(int initialSize)
 	{
 		
 	}
+
+	public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+	public long Count => throw new NotImplementedException();
+
+	public void Add(T element) => throw new NotImplementedException();
+
+	public void AddRange(IEnumerable<T> elements) => throw new NotImplementedException();
+
+	public void Insert(int index, T element) => throw new NotImplementedException();
+
+	public void RemoveAt(int index) => throw new NotImplementedException();
 }
