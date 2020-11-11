@@ -11,7 +11,6 @@ void Main()
 
 	// Question: Use the below scheduler to schedule action a on the current thread. Then
 	//           schedule b as a continuation on the same thread
-	
 }
 
 /// A TaskScheduler than executes tasks immediately

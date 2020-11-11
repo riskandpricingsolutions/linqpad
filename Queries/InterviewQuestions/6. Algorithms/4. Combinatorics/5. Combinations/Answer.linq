@@ -6,7 +6,7 @@ void Main()
 }
 
 
-public void GenerateCombinations(int[] set, 
+public void GenerateCombinations(int[] S, 
 							int[] combination,
 							int combinationIdx,
 							int firstSetIdx,
@@ -18,11 +18,11 @@ public void GenerateCombinations(int[] set,
 		return;
 	}
 
-	for (int setIdx = firstSetIdx; setIdx < set.Length ; setIdx++)
+	for (int setIdx = firstSetIdx; setIdx < S.Length ; setIdx++)
 	{
-		combination[combinationIdx] = set[setIdx];
+		combination[combinationIdx] = S[setIdx];
 		
-		GenerateCombinations(set, combination,combinationIdx + 1, setIdx + 1
+		GenerateCombinations(S, combination,combinationIdx + 1, setIdx + 1
 			,visit);
 	}
 }

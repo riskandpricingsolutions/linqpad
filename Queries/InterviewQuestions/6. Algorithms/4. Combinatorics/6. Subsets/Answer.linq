@@ -32,14 +32,14 @@ void Main()
 /// <param name="set">The elements of the set</param>
 /// <param name="k">The length of the strings</param>
 /// <returns>All strings of length k over the set S</returns>
-public static IEnumerable<T[]> GenerateKStrings<T>( T[] set,int kStringLength)
+public static IEnumerable<T[]> GenerateKStrings<T>( T[] S,int kStringLength)
 {
-	// Holds a  k digit number where each digit is of base equal to 
-	// the number of elements in S. So if there are two character in S
-	// the digits in this number are binary.
+	// Holds a k-digit number where each digit is of a base equal to 
+	// the number of elements in the set S. So if there are two 
+	// character in S,the digits in this number are binary.
 	//
-	// Each digit forms a index into the set S telling us exactly which
-	// element of S forms the character at the correspondong location
+	// Each digit forms a index into S telling us exactly which
+	// element of the S forms the character at the correspondong location
 	// in the current kstring. So if we had k=3 and S{'a','b'} then
 	// a seqIndices of {0,1,1} would correspond to the k-string of 
 	// {'a','b','c'}
@@ -47,30 +47,31 @@ public static IEnumerable<T[]> GenerateKStrings<T>( T[] set,int kStringLength)
 
 	while (true)
 	{
-		// Process the current value. Convert indices to elements
+		// Generate the current k-string by using the elements
+		// of seqIndices to index into S.
 		T[] kString = new T[kStringLength];
 		for (int i = 0; i < kStringLength; i++)
-			kString[i] = set[seqIndices[i]];
+			kString[i] = S[seqIndices[i]];
 
-		// Return the n-tuple
+		// Return the k-string.
 		yield return kString;
 
-		// In this algorithm we treat  the indices array as a
-		// n digit number where the base of each digit is determined by the
-		// number of elements in that digits corresponding event array from events. 
+		// In this algorithm we treat  the indices array as an
+		// n-digit number where the base of each digit is determined by the
+		// number of elements in S.
 		// Moving to the next n-tuple is then a  case of incrementing the 
 		// n-digit number held in seqIndices. To this we need to take care of 
 		// overflow which is what the following loop condition does.		
 		int j = 0;
-		while (j < kStringLength && seqIndices[j] == set.Length - 1)
+		while (j < kStringLength && seqIndices[j] == S.Length - 1)
 		{
 			seqIndices[j] = 0;
 			j++;
 		}
 
-		// If j is greater than the last element in seqIndices we have overflowed
-		// off the end of seqIndices. In this case the work of this algorithm is done
-		// and we have visited all n-permutations
+		// If j is greater than the last element in seqIndices we have 
+		// overflowed off the end of seqIndices. In this case the work
+		// of this algorithm is done and we have visited all n-permutations
 		if (j == kStringLength)
 			break;
 

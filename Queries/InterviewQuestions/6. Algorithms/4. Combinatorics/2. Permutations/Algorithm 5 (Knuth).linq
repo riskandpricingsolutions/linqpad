@@ -2,11 +2,30 @@
 
 void Main()
 {
-	int[] initialPermutation = {1,2,3};
-	var result = GeneratePermutations(initialPermutation).ToArray();
+	List<List<char>> expected = new List<List<char>>
+	{
+		new List<char>() {'a','a'},
+		new List<char>() {'a','b'},
+	};
+
+	var result = GeneratePermutations<char>(new List<char>() { 'a', 'b' }).ToArray();
+	result.Dump();
+	MyExtensions.AreEqual(expected.Count, result.Length);
+
+	Func<List<char>, List<char>, bool> compareResults = (b, c)
+		=> ((IStructuralEquatable)(b.ToArray())).Equals(c.ToArray(), EqualityComparer<char>.Default);
+
+	for (int i = 0; i < result.Length; i++)
+	{
+		var ex = expected[i];
+		var re = result[i];
+		var comp = compareResults(ex, re);
+		MyExtensions.AreEqual(true, compareResults(ex, re));
+	}
 }
 
-public IEnumerable<T[]> GeneratePermutations<T>(T[] initialPermutation) where T : IComparable<T>
+
+public IEnumerable<List<T>> GeneratePermutations<T>(List<T> initialPermutation) where T : IComparable<T>
 {
 	// To be clear on our terminology. We assume the given initialPermutation 
 	// is the permutation with lowest lexicographical value. As such we expect
@@ -21,14 +40,14 @@ public IEnumerable<T[]> GeneratePermutations<T>(T[] initialPermutation) where T 
 	//  
 	// For example initialPermutation might hold {1,2,3,4} and we assume index 0 
 	// hold the 'most significant digit' and index 3 holds the 'least significant digit'
-	T[] a = initialPermutation;
-	int n = initialPermutation.Length;
+	List<T> a = initialPermutation;
+	int n = initialPermutation.Count;
 
 	while (true)
 	{
 		// Take a shallow copy of the current permutation and yield return
 		// it before we make any modifications
-		T[] b = (T[])a.Clone();
+		List<T> b = new List<T>(a);
 		yield return b;
 
 		// Find the value of index j such that we have visited all permutations of
@@ -71,7 +90,7 @@ public IEnumerable<T[]> GeneratePermutations<T>(T[] initialPermutation) where T 
 	}
 }
 
-private void Swap<T>(T[] arr, int idx1, int idx2)
+private void Swap<T>(List<T> arr, int idx1, int idx2)
 {
 	T temp = arr[idx1];
 	arr[idx1] = arr[idx2];

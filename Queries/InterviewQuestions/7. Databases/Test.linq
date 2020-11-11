@@ -15,53 +15,56 @@
 -- Before running this, click "Add connection" and create a suitable empty database,
 -- then pick that database in the dropdown above.
 
-create table Courses 
-(
-	CourseID int not null primary key,
-	CourseName varchar(100) not null,
-	Teacherid int not null
-)
-
-create table Teachers
-(
-	TeacherId int not null primary key,
-	TeacherName varchar(100) not null
-)
-
-create table Students 
-(
-	StudentId int not null primary key,
-	StudentName varchar(100) not null
-)
-
-create table StudentCourse
-(
-	CourseId int not null,
-	StudentId int not null
-)
+select * from Courses
 
 
-insert Teachers values (1, 'John Smith')
-insert Teachers values (2, 'Sam Smith')
-insert Teachers values (3, 'Dawn French')
-
-insert Students values (1, 'Kenny Wilson')
-insert Students values (2, 'Robert Turnbull')
-insert Students values (3, 'Milly Vanilly')
-
-insert Courses values (1, 'Algorithms', 1)
-insert Courses values (2, 'Calculus', 2)
-
-
-insert StudentCourse values (1,1)
-insert StudentCourse values (1,2)
-insert StudentCourse values (2,1)
-
-SELECT S.StudentName, count(SC.CourseId)
-FROM Students S
-LEFT JOIN StudentCourse SC 
-ON S.StudentId = SC.StudentId
-GROUP BY S.StudentId, S.StudentName
+--create table Courses 
+--(
+--	CourseID int not null primary key,
+--	CourseName varchar(100) not null,
+--	Teacherid int not null
+--)
+--
+--create table Teachers
+--(
+--	TeacherId int not null primary key,
+--	TeacherName varchar(100) not null
+--)
+--
+--create table Students 
+--(
+--	StudentId int not null primary key,
+--	StudentName varchar(100) not null
+--)
+--
+--create table StudentCourse
+--(
+--	CourseId int not null,
+--	StudentId int not null
+--)
+--
+--
+--insert Teachers values (1, 'John Smith')
+--insert Teachers values (2, 'Sam Smith')
+--insert Teachers values (3, 'Dawn French')
+--
+--insert Students values (1, 'Kenny Wilson')
+--insert Students values (2, 'Robert Turnbull')
+--insert Students values (3, 'Milly Vanilly')
+--
+--insert Courses values (1, 'Algorithms', 1)
+--insert Courses values (2, 'Calculus', 2)
+--
+--
+--insert StudentCourse values (1,1)
+--insert StudentCourse values (1,2)
+--insert StudentCourse values (2,1)
+--
+--SELECT S.StudentName, count(SC.CourseId)
+--FROM Students S
+--LEFT JOIN StudentCourse SC 
+--ON S.StudentId = SC.StudentId
+--GROUP BY S.StudentId, S.StudentName
 
 
 --create table Categories

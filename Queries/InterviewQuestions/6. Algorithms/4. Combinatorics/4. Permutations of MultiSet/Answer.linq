@@ -2,8 +2,13 @@
 
 void Main()
 {
-	int[] initialPermutation = {1,2,2,4};
+	int[] initialPermutation = {1,2,3,4};
 	var result = GeneratePermutations(initialPermutation).ToArray();
+
+	foreach (var element in result)
+	{
+		Console.WriteLine(string.Join(",",element));
+	}
 }
 
 
